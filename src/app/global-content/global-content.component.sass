@@ -1,0 +1,19 @@
+@import "../constants"
+
+#right-side
+	position: relative
+	height: 100%
+	display: block
+	width: 100%
+	padding-left: $sidebarWidth
+	#content
+		width: 100%
+		height: 100%
+		background-color: $contentBackgroundColor
+
+
+@media all and (max-width: 500px)
+	#global-sidebar
+		width: 68px
+	#right-side
+		padding-left: $collapsedSidebarWidth

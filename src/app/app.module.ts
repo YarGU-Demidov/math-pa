@@ -5,18 +5,23 @@ import { HttpModule } from '@angular/http';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
+import { GlobalSideBarComponent } from './global-sidebar/global-sidebar.component';
+import { GlobalContentComponent } from './global-content/global-content.component';
 
 @NgModule({
-  declarations: [
-    AppComponent
-  ],
-  imports: [
-    BrowserModule,
-    FormsModule,
-    HttpModule,
-    AppRoutingModule
-  ],
-  providers: [],
-  bootstrap: [AppComponent]
+	declarations: [
+		AppComponent,
+		GlobalSideBarComponent,
+		GlobalContentComponent
+	],
+	imports     : [
+		BrowserModule,
+		FormsModule,
+		HttpModule,
+		AppRoutingModule
+	],
+	providers   : [],
+	bootstrap   : [AppComponent]
 })
-export class AppModule { }
+export class AppModule {
+}

@@ -1,0 +1,71 @@
+@import "../constants"
+@import "../mixins"
+
+#global-sidebar
+	width: $sidebarWidth
+	background-color: #0a0b33
+	color: white
+	float: left
+	position: relative
+	height: 100%
+	display: block
+	z-index: 10
+	overflow: hidden
+
+.menu-item
+	width: 250px
+	overflow: hidden
+	overflow-y: auto
+	display: block
+	position: relative
+	padding: 5px
+	&:hover
+		background-color: rgba(239, 239, 239, 0.3)
+		cursor: pointer
+	.icon
+		display: inline-block
+		float: left
+		width: 48px
+		height: 48px
+		line-height: 48px
+		text-align: center
+		@include user-select(none)
+		.material-icons
+			@include user-select(none)
+			width: 48px
+			height: 48px
+			line-height: 48px
+			text-align: center
+	.menu-content
+		height: 48px
+		line-height: 48px
+		text-align: left
+		margin-left: 60px
+		@include user-select(none)
+
+#logo-block
+	display: block
+	height: 70px
+	border-bottom: 1px solid rgba(255, 255, 255, 0.4)
+	padding: 10px 5px
+	&:hover
+		background-color: transparent
+		cursor: default
+
+#logo-text
+	text-transform: uppercase
+	cursor: default
+	font-size: 1.5em
+
+#toggle-btn
+	cursor: pointer
+
+#menu-block
+	height: calc(100% - 70px)
+	overflow: hidden
+	&:hover
+		overflow-y: auto
+
+@media all and (max-width: 500px)
+	#left-side
+		width: 68px

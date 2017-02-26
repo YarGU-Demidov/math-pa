@@ -1,4 +1,6 @@
-<h1>
-  {{title}}
-</h1>
+<div id="page" [attr.class]="getPageMode()">
+	<global-sidebar (isToggled)="toggled($event)"></global-sidebar>
+	<global-content [sidebarState]="sidebarToggled"></global-content>
+</div>
+
 <router-outlet></router-outlet>
