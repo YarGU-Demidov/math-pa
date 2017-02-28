@@ -1,22 +1,19 @@
-<div id="global-sidebar" [@userToggled]="userToggled">
-	<div id="logo-block" class="menu-item">
-		<div id="toggle-btn" (click)="toggled()" class="icon">
-			<i class="material-icons md-36">menu</i>
-		</div>
-		<div id="logo-text" class="menu-content">
-			Math Fuck
+<div id="global-sidebar" [class]="userToggled">
+	<div class="logo-wrapper">
+		<div id="logo-block" class="menu-item">
+			<div id="toggle-btn" (click)="toggled()" class="icon">
+				<i class="material-icons md-36">menu</i>
+			</div>
+			<div id="logo-text" class="menu-content">
+				Math Fuck
+			</div>
 		</div>
 	</div>
 	
 	<div id="menu-block" #menuBlock>
 		<ul>
-			<li class="menu-item" *ngFor="let item of menuItems" (click)="item.clickHandler($event, item)">
-				<div class="icon">
-					<i class="material-icons md-30">{{item.icon}}</i>
-				</div>
-				<div class="menu-content">
-					{{item.name}}
-				</div>
+			<li *ngFor="let item of menuItems">
+				<menu-item [item]="item"></menu-item>
 			</li>
 		</ul>
 	</div>

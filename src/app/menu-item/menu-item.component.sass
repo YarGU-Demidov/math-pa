@@ -1,0 +1,49 @@
+@import "../constants"
+@import "../mixins"
+
+.menu-item
+	min-width: 58px
+	max-width: 250px
+	width: 100%
+	overflow: hidden
+	overflow-y: visible
+	display: block
+	position: relative
+	padding: 5px
+	&:hover
+		background-color: rgb(78, 79, 107)
+		cursor: pointer
+	.icon
+		display: inline-block
+		float: left
+		width: 48px
+		height: 48px
+		line-height: 48px
+		text-align: center
+		@include user-select(none)
+		.material-icons
+			@include user-select(none)
+			width: 48px
+			height: 48px
+			line-height: 48px
+			text-align: center
+	.menu-content
+		height: 48px
+		line-height: 48px
+		text-align: left
+		margin-left: 60px
+		@include user-select(none)
+
+.menu-extend
+	display: block
+	position: relative
+	margin-top: -58px
+	left: 0
+	width: 350px
+	max-width: inherit
+	height: 58px
+	background: brown
+	z-index: 15
+	overflow: visible
+	&.collapsed
+		display: none

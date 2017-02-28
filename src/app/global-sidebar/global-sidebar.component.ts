@@ -2,25 +2,15 @@ import {
 	Component, OnInit, Output, EventEmitter, trigger, state, style, animate, transition,
 	ViewChild, ElementRef, AfterViewInit
 } from '@angular/core';
+import { MenuItemData } from '../menu-item/menu-item.component';
+import { EventBusService } from '../services/message-bus-service/event-bus.service';
 
 declare let $: any;
 
 @Component({
 	selector   : 'global-sidebar',
 	templateUrl: 'global-sidebar.component.html',
-	styleUrls  : ['global-sidebar.component.sass'],
-	animations : [
-		trigger('userToggled', [
-			state('collapsed', style({
-				width: '58px'
-			})),
-			state('normal', style({
-				width: '250px'
-			})),
-			transition('collapsed => normal', animate('100ms ease-in')),
-			transition('normal => collapsed', animate('100ms ease-out'))
-		])
-	]
+	styleUrls  : ['global-sidebar.component.sass']
 })
 export class GlobalSideBarComponent implements OnInit, AfterViewInit {
 	
@@ -32,57 +22,55 @@ export class GlobalSideBarComponent implements OnInit, AfterViewInit {
 	private menuBlock: ElementRef;
 	
 	private menuItems = [
-		{ name: 'Tasks', icon: 'assignment_turned_in', clickHandler: GlobalSideBarComponent.menuItemClickHandler },
-		{ name: 'Users', icon: 'face', clickHandler: GlobalSideBarComponent.menuItemClickHandler },
-		{ name: 'Calendar', icon: 'event', clickHandler: GlobalSideBarComponent.menuItemClickHandler },
-		{ name: 'Content', icon: 'art_track', clickHandler: GlobalSideBarComponent.menuItemClickHandler },
+		new MenuItemData('assignment_turned_in', 'Tasks', '#'),
+		new MenuItemData('face', 'Users', '#'),
+		new MenuItemData('event', 'Calendar', '#'),
+		new MenuItemData('art_track', 'Content', '#'),
 		
-		{ name: 'Tasks', icon: 'assignment_turned_in', clickHandler: GlobalSideBarComponent.menuItemClickHandler },
-		{ name: 'Users', icon: 'face', clickHandler: GlobalSideBarComponent.menuItemClickHandler },
-		{ name: 'Calendar', icon: 'event', clickHandler: GlobalSideBarComponent.menuItemClickHandler },
-		{ name: 'Content', icon: 'art_track', clickHandler: GlobalSideBarComponent.menuItemClickHandler },
-		{ name: 'Tasks', icon: 'assignment_turned_in', clickHandler: GlobalSideBarComponent.menuItemClickHandler },
-		{ name: 'Users', icon: 'face', clickHandler: GlobalSideBarComponent.menuItemClickHandler },
-		{ name: 'Calendar', icon: 'event', clickHandler: GlobalSideBarComponent.menuItemClickHandler },
-		{ name: 'Content', icon: 'art_track', clickHandler: GlobalSideBarComponent.menuItemClickHandler },
-		{ name: 'Tasks', icon: 'assignment_turned_in', clickHandler: GlobalSideBarComponent.menuItemClickHandler },
-		{ name: 'Users', icon: 'face', clickHandler: GlobalSideBarComponent.menuItemClickHandler },
-		{ name: 'Calendar', icon: 'event', clickHandler: GlobalSideBarComponent.menuItemClickHandler },
-		{ name: 'Content', icon: 'art_track', clickHandler: GlobalSideBarComponent.menuItemClickHandler },
-		{ name: 'Tasks', icon: 'assignment_turned_in', clickHandler: GlobalSideBarComponent.menuItemClickHandler },
-		{ name: 'Users', icon: 'face', clickHandler: GlobalSideBarComponent.menuItemClickHandler },
-		{ name: 'Calendar', icon: 'event', clickHandler: GlobalSideBarComponent.menuItemClickHandler },
-		{ name: 'Content', icon: 'art_track', clickHandler: GlobalSideBarComponent.menuItemClickHandler },
-		{ name: 'Tasks', icon: 'assignment_turned_in', clickHandler: GlobalSideBarComponent.menuItemClickHandler },
-		{ name: 'Users', icon: 'face', clickHandler: GlobalSideBarComponent.menuItemClickHandler },
-		{ name: 'Calendar', icon: 'event', clickHandler: GlobalSideBarComponent.menuItemClickHandler },
-		{ name: 'Content', icon: 'art_track', clickHandler: GlobalSideBarComponent.menuItemClickHandler },
-		{ name: 'Tasks', icon: 'assignment_turned_in', clickHandler: GlobalSideBarComponent.menuItemClickHandler },
-		{ name: 'Users', icon: 'face', clickHandler: GlobalSideBarComponent.menuItemClickHandler },
-		{ name: 'Calendar', icon: 'event', clickHandler: GlobalSideBarComponent.menuItemClickHandler },
-		{ name: 'Content', icon: 'art_track', clickHandler: GlobalSideBarComponent.menuItemClickHandler },
+		new MenuItemData('assignment_turned_in', 'Tasks', '#'),
+		new MenuItemData('face', 'Users', '#'),
+		new MenuItemData('event', 'Calendar', '#'),
+		new MenuItemData('art_track', 'Content', '#'),
+		new MenuItemData('assignment_turned_in', 'Tasks', '#'),
+		new MenuItemData('face', 'Users', '#'),
+		new MenuItemData('event', 'Calendar', '#'),
+		new MenuItemData('art_track', 'Content', '#'),
+		new MenuItemData('assignment_turned_in', 'Tasks', '#'),
+		new MenuItemData('face', 'Users', '#'),
+		new MenuItemData('event', 'Calendar', '#'),
+		new MenuItemData('art_track', 'Content', '#'),
+		new MenuItemData('assignment_turned_in', 'Tasks', '#'),
+		new MenuItemData('face', 'Users', '#'),
+		new MenuItemData('event', 'Calendar', '#'),
+		new MenuItemData('art_track', 'Content', '#'),
+		new MenuItemData('assignment_turned_in', 'Tasks', '#'),
+		new MenuItemData('face', 'Users', '#'),
+		new MenuItemData('event', 'Calendar', '#'),
+		new MenuItemData('art_track', 'Content', '#'),
+		new MenuItemData('assignment_turned_in', 'Tasks', '#'),
+		new MenuItemData('face', 'Users', '#'),
+		new MenuItemData('event', 'Calendar', '#'),
+		new MenuItemData('art_track', 'Content', '#'),
 	];
+	private eventBus: EventBusService;
 	
-	constructor() {
-		
+	constructor(eventBus: EventBusService) {
+		this.eventBus = eventBus;
 	}
 	
-	public ngOnInit() {
+	public ngOnInit(): void {
 	}
 	
-	public ngAfterViewInit(){
+	public ngAfterViewInit(): void {
+		let self = this;
 		setTimeout(() => {
-			$(this.menuBlock.nativeElement).mCustomScrollbar({
-				axis:"y",
-				theme:"minimal",
-				setTop: 0,
+			$(self.menuBlock.nativeElement).mCustomScrollbar({
+				axis         : "y",
+				theme        : "minimal",
+				setTop       : 0,
 				scrollInertia: 200
 			});
 		});
-	}
-	
-	private static menuItemClickHandler($event, item) {
-		console.log(item);
 	}
 	
 	public toggled() {

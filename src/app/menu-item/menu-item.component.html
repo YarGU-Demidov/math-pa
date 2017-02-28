@@ -1,0 +1,17 @@
+<div class="menu-item" (click)="clickHandler($event, item, extendedMenu)">
+	<div class="icon">
+		<i class="material-icons md-30">{{item.icon}}</i>
+	</div>
+	<div class="menu-content">
+		{{item.name}}
+	</div>
+</div>
+
+<div #extendedMenu class="menu-item menu-extend collapsed">
+	<div class="icon">
+		<i class="material-icons md-30">{{item.icon}}</i>
+	</div>
+	<div class="menu-content">
+		{{item.name}}
+	</div>
+</div>

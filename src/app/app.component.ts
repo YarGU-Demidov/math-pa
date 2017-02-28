@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { TitleService } from './services/title-service/title.service';
 declare let $: any;
 
 enum PageMode {
@@ -14,10 +15,12 @@ enum PageMode {
 })
 export class AppComponent implements OnInit {
 	private pageMode: PageMode = PageMode.Normal;
-		
 	private sidebarToggled: string = 'normal';
+	private titleService: TitleService;
 	
-	
+	public constructor(title: TitleService) {
+		this.titleService = title;
+	}
 	
 	public getPageMode(): string {
 		switch (this.pageMode){
@@ -40,6 +43,8 @@ export class AppComponent implements OnInit {
 				$(splashScreen).remove();
 			});
 		}
+		
+		this.titleService.setTitle("Главная страница");
 	}
 	
 	public toggled( data: string ): void {

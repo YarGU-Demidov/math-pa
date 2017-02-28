@@ -7,12 +7,16 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { GlobalSideBarComponent } from './global-sidebar/global-sidebar.component';
 import { GlobalContentComponent } from './global-content/global-content.component';
+import { TitleService } from './services/title-service/title.service';
+import { MenuItemComponent } from './menu-item/menu-item.component';
+import { EventBusService } from './services/message-bus-service/event-bus.service';
 
 @NgModule({
 	declarations: [
 		AppComponent,
 		GlobalSideBarComponent,
-		GlobalContentComponent
+		GlobalContentComponent,
+		MenuItemComponent
 	],
 	imports     : [
 		BrowserModule,
@@ -20,7 +24,10 @@ import { GlobalContentComponent } from './global-content/global-content.componen
 		HttpModule,
 		AppRoutingModule
 	],
-	providers   : [],
+	providers   : [
+		TitleService,
+		EventBusService
+	],
 	bootstrap   : [AppComponent]
 })
 export class AppModule {

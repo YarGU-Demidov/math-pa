@@ -3,25 +3,48 @@
 
 #global-sidebar
 	width: $sidebarWidth
-	background-color: #0a0b33
+	background-color: $sidebarBackColor
 	color: white
 	float: left
 	position: relative
 	height: 100%
 	display: block
 	z-index: 10
-	overflow: hidden
+	transition: $sidebarAnimationTime
+	.logo-wrapper
+		.menu-item
+			overflow: hidden
+	&.collapsed
+		width: $sidebarCollapsedWidth
+		transition: $sidebarAnimationTime
+		& .logo-wrapper
+			width: $sidebarCollapsedWidth
+			transition: $sidebarAnimationTime
+		& #menu-block
+			width: $sidebarCollapsedWidth
+			transition: $sidebarAnimationTime
+	&.normal
+		width: $sidebarWidth
+		transition: $sidebarAnimationTime
+		& .logo-wrapper
+			width: $sidebarWidth
+			transition: $sidebarAnimationTime
+		& .menu-item
+			width: $sidebarWidth
+			transition: $sidebarAnimationTime
 
-.menu-item
+#logo-block
+	display: block
+	height: 70px
+	border-bottom: 1px solid rgba(255, 255, 255, 0.4)
+	padding: 10px 5px
 	width: 250px
 	overflow: hidden
 	overflow-y: auto
-	display: block
 	position: relative
-	padding: 5px
 	&:hover
-		background-color: rgba(239, 239, 239, 0.3)
-		cursor: pointer
+		background-color: transparent
+		cursor: default
 	.icon
 		display: inline-block
 		float: left
@@ -42,27 +65,29 @@
 		text-align: left
 		margin-left: 60px
 		@include user-select(none)
-
-#logo-block
-	display: block
-	height: 70px
-	border-bottom: 1px solid rgba(255, 255, 255, 0.4)
-	padding: 10px 5px
-	&:hover
-		background-color: transparent
-		cursor: default
+	.menu-extend.collapsed
+		display: none
 
 #logo-text
 	text-transform: uppercase
 	cursor: default
 	font-size: 1.5em
 
+.logo-wrapper
+	overflow: hidden
+	z-index: 99999
+	display: block
+	position: absolute
+	background-color: $sidebarBackColor
+
 #toggle-btn
 	cursor: pointer
 
 #menu-block
 	height: calc(100% - 70px)
-	overflow: hidden
+	top: 70px
+	position: absolute
+	width: $sidebarWidth
 	&:hover
 		overflow-y: auto
 
