@@ -42,8 +42,13 @@
 	width: 350px
 	max-width: inherit
 	height: 58px
-	background: brown
+	background-color: $sidebarSelectedItemBackground
 	z-index: 15
 	overflow: visible
+	padding: 0
+	& .subItemsBody
+		padding: 5px
+	& .subItems
+		background-color: $sidebarSelectedItemBackground
 	&.collapsed
 		display: none

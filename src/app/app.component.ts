@@ -14,8 +14,8 @@ enum PageMode {
 	styleUrls  : ['./app.component.sass']
 })
 export class AppComponent implements OnInit {
-	private pageMode: PageMode = PageMode.Normal;
-	private sidebarToggled: string = 'normal';
+	private pageMode: PageMode     = PageMode.Normal;
+	private sidebarToggled: string = 'collapsed';
 	private titleService: TitleService;
 	
 	public constructor(title: TitleService) {
@@ -23,7 +23,7 @@ export class AppComponent implements OnInit {
 	}
 	
 	public getPageMode(): string {
-		switch (this.pageMode){
+		switch (this.pageMode) {
 			case PageMode.Extended:
 				return "extended";
 			case PageMode.FullWidth:
@@ -47,7 +47,7 @@ export class AppComponent implements OnInit {
 		this.titleService.setTitle("Главная страница");
 	}
 	
-	public toggled( data: string ): void {
+	public toggled(data: string): void {
 		this.sidebarToggled = data;
 	}
 }

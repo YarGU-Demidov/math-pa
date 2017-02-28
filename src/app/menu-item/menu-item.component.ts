@@ -28,6 +28,7 @@ export class MenuItemComponent {
 	public item: MenuItemData;
 	private eventBus: EventBusService;
 	private opened: boolean = false;
+	private leaveTimeoutId;
 	
 	@ViewChild('extendedMenu')
 	private extendedMenu: ElementRef;
@@ -47,10 +48,11 @@ export class MenuItemComponent {
 	}
 	
 	private clickHandler($event: MouseEvent, item: MenuItemData, element: HTMLDivElement): void {
-		element.classList.remove('collapsed');
-		this.opened = true;
+		if (this.item.subItems && this.item.subItems.length) {
+			this.opened = true;
+			element.classList.remove('collapsed');
+		}
 		this.eventBus.raise(MenuItemComponent.EVENT_NAME, this, [this]);
-		//if(this.item.subItems && this.item.subItems.length)
 	}
 	
 	public close() {
@@ -58,5 +60,21 @@ export class MenuItemComponent {
 			this.extendedMenu.nativeElement.classList.add('collapsed');
 			this.opened = false;
 		}
+	}
+	
+	private mouseEnter(){
+		if(!this.opened)
+			return;
+		
+		clearTimeout(this.leaveTimeoutId);
+	}
+	
+	private mouseLeave(){
+		if(!this.opened)
+			return;
+		
+		this.leaveTimeoutId = setTimeout(()=>{
+			this.close();
+		}, 1500);
 	}
 }

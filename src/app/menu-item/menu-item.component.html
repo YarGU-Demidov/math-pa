@@ -7,11 +7,20 @@
 	</div>
 </div>
 
-<div #extendedMenu class="menu-item menu-extend collapsed">
-	<div class="icon">
-		<i class="material-icons md-30">{{item.icon}}</i>
+<div #extendedMenu class="menu-item menu-extend collapsed" (mouseleave)="mouseLeave()" (mouseenter)="mouseEnter()">
+	<div class="subItemsBody">
+		<div class="icon">
+			<i class="material-icons md-30">{{item.icon}}</i>
+		</div>
+		<div class="menu-content">
+			{{item.name}}
+		</div>
 	</div>
-	<div class="menu-content">
-		{{item.name}}
+	<div *ngIf="item.subItems !== null && item.subItems.length > 0" class="subItems">
+		<ul>
+			<li *ngFor="let subItem of item.subItems">
+				{{subItem.name}}
+			</li>
+		</ul>
 	</div>
 </div>

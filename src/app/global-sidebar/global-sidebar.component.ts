@@ -23,33 +23,18 @@ export class GlobalSideBarComponent implements OnInit, AfterViewInit {
 	
 	private menuItems = [
 		new MenuItemData('assignment_turned_in', 'Tasks', '#'),
-		new MenuItemData('face', 'Users', '#'),
-		new MenuItemData('event', 'Calendar', '#'),
-		new MenuItemData('art_track', 'Content', '#'),
-		
-		new MenuItemData('assignment_turned_in', 'Tasks', '#'),
-		new MenuItemData('face', 'Users', '#'),
-		new MenuItemData('event', 'Calendar', '#'),
-		new MenuItemData('art_track', 'Content', '#'),
-		new MenuItemData('assignment_turned_in', 'Tasks', '#'),
-		new MenuItemData('face', 'Users', '#'),
-		new MenuItemData('event', 'Calendar', '#'),
-		new MenuItemData('art_track', 'Content', '#'),
-		new MenuItemData('assignment_turned_in', 'Tasks', '#'),
-		new MenuItemData('face', 'Users', '#'),
-		new MenuItemData('event', 'Calendar', '#'),
-		new MenuItemData('art_track', 'Content', '#'),
-		new MenuItemData('assignment_turned_in', 'Tasks', '#'),
-		new MenuItemData('face', 'Users', '#'),
-		new MenuItemData('event', 'Calendar', '#'),
-		new MenuItemData('art_track', 'Content', '#'),
-		new MenuItemData('assignment_turned_in', 'Tasks', '#'),
-		new MenuItemData('face', 'Users', '#'),
-		new MenuItemData('event', 'Calendar', '#'),
-		new MenuItemData('art_track', 'Content', '#'),
-		new MenuItemData('assignment_turned_in', 'Tasks', '#'),
-		new MenuItemData('face', 'Users', '#'),
-		new MenuItemData('event', 'Calendar', '#'),
+		new MenuItemData('face', 'Users', '#', [
+			new MenuItemData('', 'test subitem #1', '#'),
+			new MenuItemData('', 'test subitem #2', '#'),
+			new MenuItemData('', 'test subitem #3', '#'),
+			new MenuItemData('', 'test subitem #4', '#')
+		]),
+		new MenuItemData('event', 'Calendar', '#', [
+			new MenuItemData('', 'test subitem #1', '#'),
+			new MenuItemData('', 'test subitem #2', '#'),
+			new MenuItemData('', 'test subitem #3', '#'),
+			new MenuItemData('', 'test subitem #4', '#')
+		]),
 		new MenuItemData('art_track', 'Content', '#'),
 	];
 	private eventBus: EventBusService;
