@@ -7,7 +7,7 @@
 	</div>
 </div>
 
-<div #extendedMenu class="menu-item menu-extend collapsed" (mouseleave)="mouseLeave()" (mouseenter)="mouseEnter()">
+<div #extendedMenu class="menu-item menu-extend collapsed">
 	<div class="subItemsBody">
 		<div class="icon">
 			<i class="material-icons md-30">{{item.icon}}</i>
@@ -17,9 +17,16 @@
 		</div>
 	</div>
 	<div *ngIf="item.subItems !== null && item.subItems.length > 0" class="subItems">
-		<ul>
-			<li *ngFor="let subItem of item.subItems">
+		<ul *ngFor="let columnItems of item.subItems">
+			<li *ngFor="let subItem of columnItems" class="sub-item">
+
 				{{subItem.name}}
+
+				<ul *ngIf="subItem.subItems !== null && subItem.subItems.length == 1" class="sub-sub-item">
+					<li *ngFor="let subSubItem of getCurrentItems(subItem.subItems)">
+						{{ subSubItem.name }}
+					</li>
+				</ul>
 			</li>
 		</ul>
 	</div>

@@ -21,13 +21,23 @@ export class EventBusService {
 	}
 
 	/**
+	 * Checks if event exists.
+	 * @param {string} eventName Event name.
+	 *
+	 * @return {boolean} Returns true if event exists, otherwise - false.
+	 * */
+	public eventExists(eventName: string): boolean {
+		return !!this.events[eventName];
+	}
+
+	/**
 	 * Creates event.
 	 * @param {string} eventName Event name.
 	 *
 	 * @return {EventBusService} Current service .
 	 * */
 	public createEvent(eventName: string): EventBusService {
-		if (this.events[eventName])
+		if (this.eventExists(eventName))
 			throw Error(`Event ${eventName} already exists.`);
 
 		this.events[eventName] = new HandlersStorage();

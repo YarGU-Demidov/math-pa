@@ -1,5 +1,6 @@
-import { Component, OnInit } from '@angular/core';
-import { TitleService } from './services/title-service/title.service';
+import { Component, OnInit } from "@angular/core";
+import { TitleService } from "./services/title-service/title.service";
+import { EventBusService } from "./services/message-bus-service/event-bus.service";
 declare let $: any;
 
 enum PageMode {
@@ -17,11 +18,19 @@ export class AppComponent implements OnInit {
 	private pageMode: PageMode     = PageMode.Normal;
 	private sidebarToggled: string = 'collapsed';
 	private titleService: TitleService;
-	
-	public constructor(title: TitleService) {
+	private eventBus: EventBusService;
+
+	private somewhereClickEventName: string = 'somewhere-clicked';
+
+	public constructor(title: TitleService, eventBus: EventBusService) {
 		this.titleService = title;
+		this.eventBus     = eventBus;
+
+		if (!this.eventBus.eventExists(this.somewhereClickEventName)) {
+			this.eventBus.createEvent(this.somewhereClickEventName);
+		}
 	}
-	
+
 	public getPageMode(): string {
 		switch (this.pageMode) {
 			case PageMode.Extended:
@@ -34,19 +43,23 @@ export class AppComponent implements OnInit {
 				throw new Error('Out of range');
 		}
 	}
-	
+
+	public clickedSomewhere($event: MouseEvent): void {
+		this.eventBus.raise(this.somewhereClickEventName, null, [$event]);
+	}
+
 	public ngOnInit(): void {
 		const splashScreen = document.getElementById('loading-splash-screen');
-		
+
 		if (splashScreen) {
 			$(splashScreen).animate({ opacity: 0 }, 1000, () => {
 				$(splashScreen).remove();
 			});
 		}
-		
+
 		this.titleService.setTitle("Главная страница");
 	}
-	
+
 	public toggled(data: string): void {
 		this.sidebarToggled = data;
 	}

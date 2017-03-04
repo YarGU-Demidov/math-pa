@@ -13,39 +13,53 @@ declare let $: any;
 	styleUrls  : ['global-sidebar.component.sass']
 })
 export class GlobalSideBarComponent implements OnInit, AfterViewInit {
-	
+
 	@Output()
 	public isToggled = new EventEmitter();
 	private userToggled: string;
-	
+
 	@ViewChild('menuBlock')
 	private menuBlock: ElementRef;
-	
+
 	private menuItems = [
 		new MenuItemData('assignment_turned_in', 'Tasks', '#'),
 		new MenuItemData('face', 'Users', '#', [
-			new MenuItemData('', 'test subitem #1', '#'),
-			new MenuItemData('', 'test subitem #2', '#'),
-			new MenuItemData('', 'test subitem #3', '#'),
-			new MenuItemData('', 'test subitem #4', '#')
+			[
+				new MenuItemData('', 'test subitem #1', '#', [
+					[
+						new MenuItemData('', 'yo #0', '#'),
+						new MenuItemData('', 'yo #1', '#'),
+						new MenuItemData('', 'yo #2', '#'),
+					]
+				]),
+				new MenuItemData('', 'test subitem #2', '#')
+			],
+			[
+				new MenuItemData('', 'test subitem #3', '#'),
+				new MenuItemData('', 'test subitem #4', '#')
+			]
 		]),
 		new MenuItemData('event', 'Calendar', '#', [
-			new MenuItemData('', 'test subitem #1', '#'),
-			new MenuItemData('', 'test subitem #2', '#'),
-			new MenuItemData('', 'test subitem #3', '#'),
-			new MenuItemData('', 'test subitem #4', '#')
+			[
+				new MenuItemData('', 'test subitem #1', '#'),
+				new MenuItemData('', 'test subitem #2', '#')
+			],
+			[
+				new MenuItemData('', 'test subitem #3', '#'),
+				new MenuItemData('', 'test subitem #4', '#')
+			]
 		]),
 		new MenuItemData('art_track', 'Content', '#'),
 	];
 	private eventBus: EventBusService;
-	
+
 	constructor(eventBus: EventBusService) {
 		this.eventBus = eventBus;
 	}
-	
+
 	public ngOnInit(): void {
 	}
-	
+
 	public ngAfterViewInit(): void {
 		let self = this;
 		setTimeout(() => {
@@ -57,10 +71,10 @@ export class GlobalSideBarComponent implements OnInit, AfterViewInit {
 			});
 		});
 	}
-	
+
 	public toggled() {
 		this.userToggled = this.userToggled == 'collapsed' ? 'normal' : 'collapsed';
 		this.isToggled.emit(this.userToggled);
 	}
-	
+
 }
