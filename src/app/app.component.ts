@@ -17,11 +17,13 @@ enum PageMode {
 })
 export class AppComponent implements OnInit {
 	private pageMode: PageMode     = PageMode.Normal;
-	private sidebarToggled: string = 'collapsed';
+	private sidebarToggled: string = 'normal';
 	private titleService: TitleService;
 	private eventBus: EventBusService;
 
 	private somewhereClickEventName: string = 'somewhere-clicked';
+
+	public defaultState: string;
 
 	public constructor(title: TitleService, eventBus: EventBusService, browserInfo: BrowserInfoService) {
 		this.titleService = title;
@@ -31,7 +33,7 @@ export class AppComponent implements OnInit {
 			this.eventBus.createEvent(this.somewhereClickEventName);
 		}
 
-		console.dir(browserInfo.getBrowserInfo());
+		this.defaultState = browserInfo.getBrowserInfo().isMobile ? 'collapsed' : 'normal';
 	}
 
 	public getPageMode(): string {

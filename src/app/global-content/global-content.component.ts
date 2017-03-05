@@ -23,28 +23,31 @@ import { MenuItemComponent } from '../menu-item/menu-item.component';
 	]
 })
 export class GlobalContentComponent implements OnInit {
-	
+
 	@Input()
 	public sidebarState = 'normal';
-	
-	
+	@Input()
+	public defaultState = 'normal';
+
+
 	@ViewChild('text')
 	private text: ElementRef;
 	private eventBus: EventBusService;
-	
+
 	private count: number = 0;
 	private clickedText: string;
-	
+
 	constructor(eventBus: EventBusService) {
 		this.eventBus = eventBus;
-		
+
 		eventBus.subscribe(MenuItemComponent.EVENT_NAME, (active: MenuItemComponent) => {
 			this.text.nativeElement.innerHTML = active.item.name;
 			this.clickedText = `Clicked: ${++this.count}`;
 		});
 	}
-	
+
 	public ngOnInit(): void {
+		this.sidebarState = this.defaultState;
 	}
-	
+
 }

@@ -1,9 +1,6 @@
-import {
-	Component, OnInit, Output, EventEmitter, trigger, state, style, animate, transition,
-	ViewChild, ElementRef, AfterViewInit
-} from '@angular/core';
-import { MenuItemData } from '../menu-item/menu-item.component';
-import { EventBusService } from '../services/message-bus-service/event-bus.service';
+import { Component, OnInit, Output, EventEmitter, ViewChild, ElementRef, AfterViewInit, Input } from "@angular/core";
+import { MenuItemData } from "../menu-item/menu-item.component";
+import { EventBusService } from "../services/message-bus-service/event-bus.service";
 
 declare let $: any;
 
@@ -17,6 +14,9 @@ export class GlobalSideBarComponent implements OnInit, AfterViewInit {
 	@Output()
 	public isToggled = new EventEmitter();
 	private userToggled: string;
+
+	@Input()
+	public defaultState: string = 'normal';
 
 	@ViewChild('menuBlock')
 	private menuBlock: ElementRef;
@@ -58,6 +58,7 @@ export class GlobalSideBarComponent implements OnInit, AfterViewInit {
 	}
 
 	public ngOnInit(): void {
+		this.userToggled = this.defaultState;
 	}
 
 	public ngAfterViewInit(): void {

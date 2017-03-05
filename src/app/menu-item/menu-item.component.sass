@@ -39,16 +39,24 @@
 	position: relative
 	margin-top: -58px
 	left: 0
-	width: 350px
+	min-width: 250px
 	max-width: inherit
 	height: 58px
 	background-color: $sidebarSelectedItemBackground
 	z-index: 15
 	overflow: visible
 	padding: 0
-	& .subItemsBody
+	.sub-items-body
 		padding: 5px
-	& .subItems
+	.sub-items
 		background-color: $sidebarSelectedItemBackground
+		display: flex
+		li
+			min-width: 250px
+		.sub-item
+			display: block
+	&.mobile
+		.sub-items
+			display: block
 	&.collapsed
 		display: none

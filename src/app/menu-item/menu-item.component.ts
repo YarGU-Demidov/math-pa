@@ -1,5 +1,6 @@
-import { Component, Input, ViewChild, ElementRef } from "@angular/core";
+import { Component, Input, ViewChild, ElementRef, OnInit, AfterViewInit } from "@angular/core";
 import { EventBusService } from "../services/message-bus-service/event-bus.service";
+import { BrowserInfoService } from "../services/browser-info-service/browser-info.service";
 
 export class MenuItemData {
 	public icon: string;
@@ -20,9 +21,12 @@ export class MenuItemData {
 	templateUrl: './menu-item.component.html',
 	styleUrls  : ['menu-item.component.sass']
 })
-export class MenuItemComponent {
+export class MenuItemComponent implements OnInit, AfterViewInit {
 
 	public static EVENT_NAME = 'menu-item-clicked';
+
+	public extendedWidth: string = '0px';
+	public columnWidth: number   = 200;
 
 	@Input()
 	public item: MenuItemData;
@@ -32,8 +36,11 @@ export class MenuItemComponent {
 	@ViewChild('extendedMenu')
 	private extendedMenu: ElementRef;
 
-	constructor(eventBus: EventBusService) {
-		const self = this;
+	private browserInfo: BrowserInfoService;
+
+	constructor(eventBus: EventBusService, browserInfo: BrowserInfoService) {
+		this.browserInfo = browserInfo;
+		const self       = this;
 
 		self.eventBus = eventBus;
 
@@ -53,6 +60,22 @@ export class MenuItemComponent {
 				self.close();
 			}
 		})
+	}
+
+	public ngOnInit(): void {
+		this.extendedWidth = !this.browserInfo.getBrowserInfo().isMobile
+			? this.columnWidth * this.item.subItems.length + 'px'
+			: this.columnWidth + 'px';
+	}
+
+	public ngAfterViewInit(): void {
+
+		if (this.browserInfo.getBrowserInfo().isMobile) {
+			let elem: HTMLDivElement = this.extendedMenu.nativeElement;
+			if (!elem.classList.contains('mobile')) {
+				elem.classList.add('mobile');
+			}
+		}
 	}
 
 	private clickHandler($event: MouseEvent, item: MenuItemData, element: HTMLDivElement): void {
