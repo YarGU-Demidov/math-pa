@@ -1,5 +1,6 @@
 import { Component, OnInit, ViewChild, ElementRef } from "@angular/core";
 import { EventBusService } from "../services/message-bus-service/event-bus.service";
+import { Constants } from "../constants";
 
 @Component({
 	selector   : 'error',
@@ -21,7 +22,7 @@ export class ErrorsHandlerComponent implements OnInit {
 
 	public constructor(eventBus: EventBusService) {
 		this.eventBus = eventBus;
-		eventBus.subscribe(ErrorsHandlerComponent.CRITICAL_ERROR_EVENT_NAME, ErrorsHandlerComponent.criticalErrorsHandler, this);
+		eventBus.subscribe(Constants.eventBusEvents.CRITICAL_ERROR_EVENT_NAME, ErrorsHandlerComponent.criticalErrorsHandler, this);
 	}
 
 	private static criticalErrorsHandler(message: string, thisContext: ErrorsHandlerComponent): void {

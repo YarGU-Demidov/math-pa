@@ -4,7 +4,7 @@ import "rxjs/add/operator/toPromise";
 export abstract class DbSet<T> {
 	protected abstract urlPath: string;
 
-	private http: Http;
+	protected http: Http;
 	private apiUrl: string;
 
 	public constructor(apiUrl: string, http: Http) {
@@ -17,18 +17,18 @@ export abstract class DbSet<T> {
 	}
 
 	public getAll(): Promise<Array<T>> {
-		return this.http.get(this.getFullUrl()).toPromise().then((response: Response) => {
+		return this.http.get(`${this.getFullUrl()}/GetAll`, { withCredentials: true }).toPromise().then((response: Response) => {
 			return <Array<T>>response.json();
 		}, (error) => {
-			throw new Error(`Error with downloading data: ${error.toString()}`);
+			throw new Error(`Can't download data: ${error.toString()}`);
 		});
 	}
 
 	public saveAll(data: Array<T>): Promise<boolean> {
-		return this.http.put(this.getFullUrl(), JSON.stringify(data)).toPromise().then((response: Response) => {
+		return this.http.put(this.getFullUrl(), JSON.stringify(data), { withCredentials: true }).toPromise().then((response: Response) => {
 			return response.ok;
 		}, (error) => {
-			throw new Error(`Error with saving data: ${error.toString()}`);
+			throw new Error(`Can't save data: ${error.toString()}`);
 		});
 	}
 }

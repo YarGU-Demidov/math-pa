@@ -17,7 +17,7 @@
 		</div>
 	</div>
 	<div *ngIf="item.subItems !== null && item.subItems.length > 0" class="sub-items">
-		<ul *ngFor="let columnItems of item.subItems" [ngStyle]="{'width': columnWidth+'px'}">
+		<ul *ngFor="let columnItems of item.subItems" [ngStyle]="{'width': extendedMenuColumnWidth+'px'}">
 			<li *ngFor="let subItem of columnItems" class="sub-item">
 
 				{{subItem.name}}

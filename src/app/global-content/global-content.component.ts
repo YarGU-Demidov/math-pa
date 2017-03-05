@@ -4,6 +4,7 @@ import {
 } from '@angular/core';
 import { EventBusService } from '../services/message-bus-service/event-bus.service';
 import { MenuItemComponent } from '../menu-item/menu-item.component';
+import { Constants } from "../constants";
 
 @Component({
 	selector   : 'global-content',
@@ -40,7 +41,7 @@ export class GlobalContentComponent implements OnInit {
 	constructor(eventBus: EventBusService) {
 		this.eventBus = eventBus;
 
-		eventBus.subscribe(MenuItemComponent.EVENT_NAME, (active: MenuItemComponent) => {
+		eventBus.subscribe(Constants.eventBusEvents.MENU_ITEM_CLICK, (active: MenuItemComponent) => {
 			this.text.nativeElement.innerHTML = active.item.name;
 			this.clickedText = `Clicked: ${++this.count}`;
 		});
