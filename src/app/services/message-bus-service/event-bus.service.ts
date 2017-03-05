@@ -49,9 +49,10 @@ export class EventBusService {
 	 * Allows to subscribe to concrete event.
 	 * @param {string} eventName Event name.
 	 * @param {Function} handler Your event handler.
+	 * @param additionalContext Your additional context.
 	 * @return {number} Event Id.
 	 * */
-	public subscribe(eventName: string, handler: Function): number {
+	public subscribe(eventName: string, handler: Function, additionalContext: Object = null): number {
 		let eventHandlers = this.events[eventName];
 		const id          = this.lastId++;
 
@@ -60,7 +61,7 @@ export class EventBusService {
 			eventHandlers = this.events[eventName];
 		}
 
-		eventHandlers.add(id, handler);
+		eventHandlers.add(id, handler, additionalContext);
 
 		return id;
 	}

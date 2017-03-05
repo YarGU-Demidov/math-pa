@@ -1,0 +1,32 @@
+@import "../constants"
+@import "../mixins"
+
+.critical-error-wrapper
+	display: none
+	position: absolute
+	top: 0
+	bottom: 0
+	left: 0
+	right: 0
+	z-index: 1000
+	background-color: rgba(0, 0, 0, 0.85)
+	color: white
+	.critical-error
+		display: block
+		max-width: 90%
+		max-height: 30%
+		height: 300px
+		width: 600px
+		margin: auto
+		background-color: #6d6d6d
+		box-shadow: 0 0 5px rgba(0, 0, 0, 1)
+		border-radius: $errorsBorderRadius
+		.critical-title
+			height: 30px
+			line-height: 30px
+			background-color: darkred
+			border-radius: $errorsBorderRadius $errorsBorderRadius 0 0
+			padding: 0 10px
+			text-transform: uppercase
+		.critical-body
+			padding: 10px

@@ -1,20 +1,8 @@
 import { Component, Input, ViewChild, ElementRef, OnInit, AfterViewInit } from "@angular/core";
 import { EventBusService } from "../services/message-bus-service/event-bus.service";
 import { BrowserInfoService } from "../services/browser-info-service/browser-info.service";
+import { MenuItemData } from "../view-models/menu-item-data";
 
-export class MenuItemData {
-	public icon: string;
-	public name: string;
-	public href: string;
-	public subItems: Array<MenuItemData[]>;
-
-	constructor(icon: string, name: string, href: string, subItems: Array<MenuItemData[]> = []) {
-		this.icon     = icon;
-		this.name     = name;
-		this.href     = href;
-		this.subItems = subItems;
-	}
-}
 
 @Component({
 	selector   : 'menu-item',

@@ -1,6 +1,8 @@
 import { Component, OnInit, Output, EventEmitter, ViewChild, ElementRef, AfterViewInit, Input } from "@angular/core";
-import { MenuItemData } from "../menu-item/menu-item.component";
+import { MenuItemData } from "../view-models/menu-item-data";
 import { EventBusService } from "../services/message-bus-service/event-bus.service";
+import { DataProviderService } from "../services/data-provider-service/data-provider.service";
+import { ErrorsHandlerComponent } from "../errors-handler/errors-handler.component";
 
 declare let $: any;
 
@@ -21,40 +23,21 @@ export class GlobalSideBarComponent implements OnInit, AfterViewInit {
 	@ViewChild('menuBlock')
 	private menuBlock: ElementRef;
 
-	private menuItems = [
-		new MenuItemData('assignment_turned_in', 'Tasks', '#'),
-		new MenuItemData('face', 'Users', '#', [
-			[
-				new MenuItemData('', 'test subitem #1', '#', [
-					[
-						new MenuItemData('', 'yo #0', '#'),
-						new MenuItemData('', 'yo #1', '#'),
-						new MenuItemData('', 'yo #2', '#'),
-					]
-				]),
-				new MenuItemData('', 'test subitem #2', '#')
-			],
-			[
-				new MenuItemData('', 'test subitem #3', '#'),
-				new MenuItemData('', 'test subitem #4', '#')
-			]
-		]),
-		new MenuItemData('event', 'Calendar', '#', [
-			[
-				new MenuItemData('', 'test subitem #5', '#'),
-				new MenuItemData('', 'test subitem #6', '#')
-			],
-			[
-				new MenuItemData('', 'test subitem #7', '#'),
-				new MenuItemData('', 'test subitem #8', '#')
-			]
-		]),
-		new MenuItemData('art_track', 'Content', '#'),
-	];
+	private menuItems = [];
 	private eventBus: EventBusService;
+	private dataProvider: DataProviderService;
 
-	constructor(eventBus: EventBusService) {
-		this.eventBus = eventBus;
+	constructor(eventBus: EventBusService, dataProvider: DataProviderService) {
+		let self          = this;
+		this.eventBus     = eventBus;
+		this.dataProvider = dataProvider;
+
+		dataProvider.menuItemsData().getAll().then((data: Array<MenuItemData>) => {
+			self.menuItems = data;
+		}, (error) => {
+			eventBus.raise(ErrorsHandlerComponent.CRITICAL_ERROR_EVENT_NAME, self, [error.message]);
+		})
+
 	}
 
 	public ngOnInit(): void {
