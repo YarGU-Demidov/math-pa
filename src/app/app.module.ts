@@ -10,6 +10,7 @@ import { GlobalContentComponent } from './global-content/global-content.componen
 import { TitleService } from './services/title-service/title.service';
 import { MenuItemComponent } from './menu-item/menu-item.component';
 import { EventBusService } from './services/message-bus-service/event-bus.service';
+import { BrowserInfoService } from "./services/browser-info-service/browser-info.service";
 
 @NgModule({
 	declarations: [
@@ -26,7 +27,8 @@ import { EventBusService } from './services/message-bus-service/event-bus.servic
 	],
 	providers   : [
 		TitleService,
-		EventBusService
+		EventBusService,
+		BrowserInfoService
 	],
 	bootstrap   : [AppComponent]
 })

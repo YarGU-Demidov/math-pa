@@ -22,8 +22,8 @@
 
 				{{subItem.name}}
 
-				<ul *ngIf="subItem.subItems !== null && subItem.subItems.length == 1" class="sub-sub-item">
-					<li *ngFor="let subSubItem of getCurrentItems(subItem.subItems)">
+				<ul *ngIf="subItem.subItems !== null && subItem.subItems.length == 1">
+					<li *ngFor="let subSubItem of getCurrentItems(subItem.subItems)" class="sub-sub-item">
 						{{ subSubItem.name }}
 					</li>
 				</ul>

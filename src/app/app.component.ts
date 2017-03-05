@@ -1,6 +1,7 @@
 import { Component, OnInit } from "@angular/core";
 import { TitleService } from "./services/title-service/title.service";
 import { EventBusService } from "./services/message-bus-service/event-bus.service";
+import { BrowserInfoService } from "./services/browser-info-service/browser-info.service";
 declare let $: any;
 
 enum PageMode {
@@ -22,13 +23,15 @@ export class AppComponent implements OnInit {
 
 	private somewhereClickEventName: string = 'somewhere-clicked';
 
-	public constructor(title: TitleService, eventBus: EventBusService) {
+	public constructor(title: TitleService, eventBus: EventBusService, browserInfo: BrowserInfoService) {
 		this.titleService = title;
 		this.eventBus     = eventBus;
 
 		if (!this.eventBus.eventExists(this.somewhereClickEventName)) {
 			this.eventBus.createEvent(this.somewhereClickEventName);
 		}
+
+		console.dir(browserInfo.getBrowserInfo());
 	}
 
 	public getPageMode(): string {

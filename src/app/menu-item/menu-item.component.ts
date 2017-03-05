@@ -1,5 +1,5 @@
-import { Component, Input, ViewChild, ElementRef } from '@angular/core';
-import { EventBusService } from '../services/message-bus-service/event-bus.service';
+import { Component, Input, ViewChild, ElementRef } from "@angular/core";
+import { EventBusService } from "../services/message-bus-service/event-bus.service";
 
 export class MenuItemData {
 	public icon: string;
@@ -45,7 +45,11 @@ export class MenuItemComponent {
 		});
 
 		eventBus.subscribe('somewhere-clicked', function ($event: MouseEvent) {
-			if(self.opened && !($event.toElement.classList.contains('sub-item') || $event.toElement.classList.contains('menu-content'))) {
+			if (self.opened && !($event.toElement.classList.contains('sub-item') ||
+				$event.toElement.classList.contains('sub-sub-item') ||
+				$event.toElement.classList.contains('menu-content') ||
+				$event.toElement.classList.contains('menu-item') ||
+				$event.toElement.classList.contains('material-icons'))) {
 				self.close();
 			}
 		})

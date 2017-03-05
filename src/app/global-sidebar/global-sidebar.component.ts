@@ -41,12 +41,12 @@ export class GlobalSideBarComponent implements OnInit, AfterViewInit {
 		]),
 		new MenuItemData('event', 'Calendar', '#', [
 			[
-				new MenuItemData('', 'test subitem #1', '#'),
-				new MenuItemData('', 'test subitem #2', '#')
+				new MenuItemData('', 'test subitem #5', '#'),
+				new MenuItemData('', 'test subitem #6', '#')
 			],
 			[
-				new MenuItemData('', 'test subitem #3', '#'),
-				new MenuItemData('', 'test subitem #4', '#')
+				new MenuItemData('', 'test subitem #7', '#'),
+				new MenuItemData('', 'test subitem #8', '#')
 			]
 		]),
 		new MenuItemData('art_track', 'Content', '#'),
