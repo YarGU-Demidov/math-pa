@@ -5,6 +5,7 @@ import {
 import { EventBusService } from '../services/message-bus-service/event-bus.service';
 import { MenuItemComponent } from '../menu-item/menu-item.component';
 import { Constants } from "../constants";
+import { BrowserInfoService } from '../services/browser-info-service/browser-info.service';
 
 @Component({
 	selector   : 'global-content',
@@ -37,9 +38,13 @@ export class GlobalContentComponent implements OnInit {
 
 	private count: number = 0;
 	private clickedText: string;
+	
+	private isMobile = false;
 
-	constructor(eventBus: EventBusService) {
+	constructor(eventBus: EventBusService, browserInfo: BrowserInfoService) {
 		this.eventBus = eventBus;
+		
+		this.isMobile = browserInfo.getBrowserInfo().isMobile;
 
 		eventBus.subscribe(Constants.eventBusEvents.MENU_ITEM_CLICK, (active: MenuItemComponent) => {
 			this.text.nativeElement.innerHTML = active.item.name;

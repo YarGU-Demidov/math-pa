@@ -12,6 +12,7 @@ import { EventBusService } from "./services/message-bus-service/event-bus.servic
 import { BrowserInfoService } from "./services/browser-info-service/browser-info.service";
 import { DataProviderService } from "./services/data-provider-service/data-provider.service";
 import { ErrorsHandlerComponent } from './errors-handler/errors-handler.component';
+import { UserBarComponent } from './user-bar/user-bar.component';
 
 @NgModule({
 	declarations: [
@@ -19,7 +20,8 @@ import { ErrorsHandlerComponent } from './errors-handler/errors-handler.componen
 		GlobalSideBarComponent,
 		GlobalContentComponent,
 		MenuItemComponent,
-		ErrorsHandlerComponent
+		ErrorsHandlerComponent,
+		UserBarComponent
 	],
 	imports     : [
 		BrowserModule,

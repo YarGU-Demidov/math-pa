@@ -1,5 +1,7 @@
 <div id="right-side" [@sidebarState]="sidebarState" #contentArea>
 	<div id="content">
+		<user-bar *ngIf="!isMobile"></user-bar>
+		
 		<p>{{ sidebarState }}</p>
 		<p>
 			global-content works!

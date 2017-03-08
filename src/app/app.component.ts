@@ -38,7 +38,6 @@ export class AppComponent implements OnInit {
 		}
 
 		this.defaultState = browserInfo.getBrowserInfo().isMobile ? 'collapsed' : 'normal';
-		dataProvider.currentUserInfo().then(data => console.log(data));
 	}
 
 	public getPageMode(): string {

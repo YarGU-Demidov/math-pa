@@ -39,7 +39,7 @@ export class MenuItemComponent implements OnInit, AfterViewInit, OnDestroy {
 			self.close();
 		});
 
-		this.eventId = eventBus.subscribe(Constants.eventBusEvents.SOMEWHERE_CLICKED, function ($event: MouseEvent) {
+		this.eventId = eventBus.subscribe(Constants.eventBusEvents.SOMEWHERE_CLICKED, ($event: MouseEvent) => {
 			if (self.opened && !($event.toElement.classList.contains('sub-item') ||
 				$event.toElement.classList.contains('sub-sub-item') ||
 				$event.toElement.classList.contains('menu-content') ||

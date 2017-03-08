@@ -16,8 +16,8 @@ export abstract class DbSet<T> {
 		return `${this.apiUrl}/${this.urlPath}`;
 	}
 
-	public getAll(): Promise<Array<T>> {
-		return this.http.get(`${this.getFullUrl()}/GetAll`, { withCredentials: true }).toPromise().then((response: Response) => {
+	public getAll(offset: number = 0, count: number = 50): Promise<Array<T>> {
+		return this.http.get(`${this.getFullUrl()}/GetAll?offset=${parseInt(offset.toString())}&count=${parseInt(count.toString())}`, { withCredentials: true }).toPromise().then((response: Response) => {
 			return <Array<T>>response.json();
 		}, (error) => {
 			throw new Error(`Can't download data: ${error.toString()}`);
