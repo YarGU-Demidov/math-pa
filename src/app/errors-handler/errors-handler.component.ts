@@ -8,32 +8,40 @@ import { Constants } from "../constants";
 	styleUrls  : ['errors-handler.component.sass']
 })
 export class ErrorsHandlerComponent implements OnInit {
-
-	public static CRITICAL_ERROR_EVENT_NAME: string = 'critical-error';
-
-	@ViewChild('criticalError')
-	public criticalErrorElem: ElementRef;
-
+	
 	public criticalVisibility: boolean = false;
 	public criticalTitle: string       = "Critical error occurred!";
 	public criticalBody: string        = "Something went wrong.";
-
+	
+	public simpleVisibility: boolean = false;
+	public simpleTitle: string       = "Error occurred!";
+	public simpleBody: string        = "Something went wrong.";
+	
 	private eventBus: EventBusService;
-
-	public constructor(eventBus: EventBusService) {
+	
+	public constructor (eventBus: EventBusService) {
 		this.eventBus = eventBus;
 		eventBus.subscribe(Constants.eventBusEvents.CRITICAL_ERROR_EVENT_NAME, ErrorsHandlerComponent.criticalErrorsHandler, this);
+		eventBus.subscribe(Constants.eventBusEvents.ERROR_EVENT_NAME, ErrorsHandlerComponent.simpleErrorsHandler, this);
 	}
-
-	private static criticalErrorsHandler(message: string, thisContext: ErrorsHandlerComponent): void {
+	
+	private static criticalErrorsHandler (message: string, thisContext: ErrorsHandlerComponent): void {
 		thisContext.criticalVisibility = true;
 		thisContext.criticalBody       = message;
 	}
-
-	private static warningsHandler(): void {
+	
+	private static simpleErrorsHandler (title: string, message: string, thisContext: ErrorsHandlerComponent): void {
+		thisContext.criticalVisibility = true;
+		thisContext.simpleTitle        = title;
+		thisContext.criticalBody       = message;
 	}
-
-	public ngOnInit(): void {
+	
+	private static warningsHandler (): void {
+		
 	}
-
+	
+	public ngOnInit (): void {
+		
+	}
+	
 }

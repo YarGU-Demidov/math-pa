@@ -2,7 +2,6 @@ import { Component, OnInit } from "@angular/core";
 import { TitleService } from "./services/title-service/title.service";
 import { EventBusService } from "./services/message-bus-service/event-bus.service";
 import { BrowserInfoService } from "./services/browser-info-service/browser-info.service";
-import { DataProviderService } from "./services/data-provider-service/data-provider.service";
 
 declare let $: any;
 
@@ -26,12 +25,10 @@ export class AppComponent implements OnInit {
 	private somewhereClickEventName: string = 'somewhere-clicked';
 
 	public defaultState: string;
-	private dataProvider: DataProviderService;
 
-	public constructor(title: TitleService, eventBus: EventBusService, browserInfo: BrowserInfoService, dataProvider: DataProviderService) {
+	public constructor(title: TitleService, eventBus: EventBusService, browserInfo: BrowserInfoService) {
 		this.titleService = title;
 		this.eventBus     = eventBus;
-		this.dataProvider = dataProvider;
 
 		if (!this.eventBus.eventExists(this.somewhereClickEventName)) {
 			this.eventBus.createEvent(this.somewhereClickEventName);

@@ -1,8 +1,8 @@
 import { Component, OnInit, Output, EventEmitter, ViewChild, ElementRef, AfterViewInit, Input } from "@angular/core";
 import { MenuItemData } from "../view-models/menu-item-data";
 import { EventBusService } from "../services/message-bus-service/event-bus.service";
-import { DataProviderService } from "../services/data-provider-service/data-provider.service";
-import { ErrorsHandlerComponent } from "../errors-handler/errors-handler.component";
+import { Constants } from '../constants';
+import { ApiService } from '../services/api-service/api.service';
 
 declare let $: any;
 
@@ -12,38 +12,38 @@ declare let $: any;
 	styleUrls  : ['global-sidebar.component.sass']
 })
 export class GlobalSideBarComponent implements OnInit, AfterViewInit {
-
+	
 	@Output()
 	public isToggled = new EventEmitter();
 	private userToggled: string;
-
+	
 	@Input()
 	public defaultState: string = 'normal';
-
+	
 	@ViewChild('menuBlock')
 	private menuBlock: ElementRef;
-
+	
 	private menuItems = [];
 	private eventBus: EventBusService;
-	private dataProvider: DataProviderService;
-
-	constructor(eventBus: EventBusService, dataProvider: DataProviderService) {
-		let self          = this;
-		this.eventBus     = eventBus;
-		this.dataProvider = dataProvider;
-
-		dataProvider.menuItemsData().getAll().then((data: Array<MenuItemData>) => {
+	private api: ApiService;
+	
+	constructor(eventBus: EventBusService, api: ApiService) {
+		let self      = this;
+		this.eventBus = eventBus;
+		this.api      = api;
+		
+		api.menuItemsData().getAll().then((data: Array<MenuItemData>) => {
 			self.menuItems = data;
 		}, (error) => {
-			eventBus.raise(ErrorsHandlerComponent.CRITICAL_ERROR_EVENT_NAME, self, [error.message]);
+			eventBus.raise(Constants.eventBusEvents.CRITICAL_ERROR_EVENT_NAME, self, [error.message]);
 		})
-
+		
 	}
-
+	
 	public ngOnInit(): void {
 		this.userToggled = this.defaultState;
 	}
-
+	
 	public ngAfterViewInit(): void {
 		let self = this;
 		setTimeout(() => {
@@ -55,10 +55,10 @@ export class GlobalSideBarComponent implements OnInit, AfterViewInit {
 			});
 		});
 	}
-
+	
 	public toggled() {
 		this.userToggled = this.userToggled == 'collapsed' ? 'normal' : 'collapsed';
 		this.isToggled.emit(this.userToggled);
 	}
-
+	
 }

@@ -1,9 +1,11 @@
 import { Component, OnInit, ViewChild, AfterViewInit, ElementRef } from '@angular/core';
-import { DataProviderService } from '../services/data-provider-service/data-provider.service';
 import { BrowserInfoService } from '../services/browser-info-service/browser-info.service';
 import { UserInfo } from '../view-models/user-info';
 import { EventBusService } from '../services/message-bus-service/event-bus.service';
 import { Constants } from '../constants';
+import { LogoutResult } from '../view-models/logout-result';
+import { LogoutStatus } from '../view-models/logout-status';
+import { ApiService } from '../services/api-service/api.service';
 
 @Component({
 	selector   : 'user-bar',
@@ -16,7 +18,7 @@ export class UserBarComponent implements OnInit, AfterViewInit {
 	
 	private user: UserInfo;
 	
-	private dataProvider: DataProviderService;
+	private api: ApiService;
 	private browserInfo: BrowserInfoService;
 	
 	private menuVisible: boolean = false;
@@ -29,14 +31,15 @@ export class UserBarComponent implements OnInit, AfterViewInit {
 	private loginTitle: ElementRef;
 	private eventBus: EventBusService;
 	
-	public constructor(dataProvider: DataProviderService, browserInfo: BrowserInfoService, eventBus: EventBusService) {
-		this.dataProvider = dataProvider;
+	public constructor(api: ApiService, browserInfo: BrowserInfoService, eventBus: EventBusService) {
+		this.api = api;
 		this.browserInfo  = browserInfo;
 		this.eventBus     = eventBus;
 		
 		const self = this;
 		this.user  = new UserInfo();
-		dataProvider.currentUserInfo().then((user: UserInfo) => {
+		
+		api.currentUserInfo().then((user: UserInfo) => {
 			self.setUserData(user);
 		});
 		
@@ -97,5 +100,19 @@ export class UserBarComponent implements OnInit, AfterViewInit {
 		} else {
 			context.menuClose();
 		}
+	}
+	
+	public logout(): void {
+		let self = this;
+		
+		this.api.auth().logout().then((result: LogoutResult) => {
+			if(result.logoutStatus == LogoutStatus.Success) {
+				location.href = "/";
+			} else {
+				self.eventBus.raise(Constants.eventBusEvents.ERROR_EVENT_NAME, self, ["Logout error", result.description]);
+			}
+		}, error => {
+			self.eventBus.raise(Constants.eventBusEvents.ERROR_EVENT_NAME, self, ["Logout error", error.message]);
+		});
 	}
 }

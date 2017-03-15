@@ -1,4 +1,4 @@
-<div #criticalError class="critical-error-wrapper" [ngStyle]="{'display': criticalVisibility ? 'flex' : 'none'}">
+<div class="critical-error-wrapper" [ngStyle]="{'display': criticalVisibility ? 'flex' : 'none'}">
 	<div class="critical-error">
 		<div class="critical-title">
 			{{ criticalTitle }}
@@ -8,3 +8,15 @@
 		</div>
 	</div>
 </div>
+
+<div class="critical-error-wrapper" [ngStyle]="{'display': simpleVisibility ? 'flex' : 'none'}">
+	<div class="critical-error">
+		<div class="critical-title">
+			{{ simpleTitle }}
+		</div>
+		<div class="critical-body">
+			{{ simpleBody }}
+		</div>
+	</div>
+</div>
+
