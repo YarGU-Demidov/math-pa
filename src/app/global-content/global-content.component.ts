@@ -1,7 +1,7 @@
 import { Component, OnInit, ElementRef, ViewChild, AfterViewInit } from '@angular/core';
 import { EventBusService } from '../services/message-bus-service/event-bus.service';
 import { MenuItemComponent } from '../menu-item/menu-item.component';
-import { Constants } from "../services/constants-service/constants.service";
+import { Constants } from '../services/constants-service/constants.service';
 import { BrowserInfoService } from '../services/browser-info-service/browser-info.service';
 import { BrowserInfo } from '../services/browser-info-service/browser-info';
 
@@ -20,9 +20,10 @@ export class GlobalContentComponent implements OnInit, AfterViewInit {
 	private eventBus: EventBusService;
 	
 	private count: number = 0;
-	private clickedText: string;
 	private browserInfo: BrowserInfo;
 	private constants: Constants;
+	
+	public clickedText: string;
 	
 	constructor(eventBus: EventBusService, browserInfo: BrowserInfoService, constants: Constants) {
 		this.eventBus    = eventBus;
