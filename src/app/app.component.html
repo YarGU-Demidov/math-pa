@@ -2,8 +2,8 @@
 
 <div (click)="clickedSomewhere($event)" class="page-wrapper">
 	<div id="page" [attr.class]="getPageMode()">
-		<global-sidebar [defaultState]="defaultState" (isToggled)="toggled($event)"></global-sidebar>
-		<global-content [defaultState]="defaultState" [sidebarState]="sidebarToggled"></global-content>
+		<global-sidebar></global-sidebar>
+		<global-content></global-content>
 	</div>
 </div>
 

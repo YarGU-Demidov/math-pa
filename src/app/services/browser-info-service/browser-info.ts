@@ -7,17 +7,17 @@ export class BrowserInfo {
 	public version: string;
 	public isMobile: boolean;
 	public osType: OsType;
-
+	
 	public static parse(userAgent: string): BrowserInfo {
-		let browserInfo = new BrowserInfo();
-		browserInfo.name = BrowserInfo.getBrowser(userAgent);
-		browserInfo.version = BrowserInfo.getVersion(userAgent).toString();
+		let browserInfo      = new BrowserInfo();
+		browserInfo.name     = BrowserInfo.getBrowser(userAgent);
+		browserInfo.version  = BrowserInfo.getVersion(userAgent).toString();
 		browserInfo.isMobile = BrowserInfo.getMobile(userAgent) !== 'Unknown';
-		browserInfo.osType = BrowserInfo.getOs(userAgent);
-
+		browserInfo.osType   = BrowserInfo.getOS(userAgent);
+		
 		return browserInfo;
 	}
-
+	
 	private static getBrowser(userAgent: string): string {
 		try {
 			switch (true) {
@@ -46,11 +46,11 @@ export class BrowserInfo {
 			}
 		}
 		catch (err) {
-			console.debug("ERROR:setBrowser\t", err);
+			console.debug("ERROR:getBrowser\t", err);
 		}
 		return 'Unknown';
 	}
-
+	
 	private static getMobile(userAgent: string): string {
 		try {
 			switch (true) {
@@ -87,18 +87,18 @@ export class BrowserInfo {
 			}
 		}
 		catch (err) {
-			console.debug("ERROR:setMobile\t", err);
+			console.debug("ERROR:getMobile\t", err);
 		}
 		return 'Unknown';
 	}
-
+	
 	private static getVersion(userAgent: string): number|string {
 		try {
 			switch (true) {
 				case (/MSIE|Trident/i.test(userAgent)):
 					if (/Trident/i.test(userAgent) && /rv:([0-9]{1,}[\.0-9]{0,})/.test(userAgent))
 						return parseFloat(userAgent.match(/rv:([0-9]{1,}[\.0-9]{0,})/)[1].replace(/[^0-9\.]/g, ''));
-
+					
 					return (/MSIE/i.test(userAgent) && parseFloat(userAgent.split("MSIE")[1].replace(/[^0-9\.]/g, '')) > 0)
 						? parseFloat(userAgent.split("MSIE")[1].replace(/[^0-9\.]/g, ''))
 						: "Edge";
@@ -126,12 +126,12 @@ export class BrowserInfo {
 			}
 		}
 		catch (err) {
-			console.debug("ERROR:setVersion\t", err);
+			console.debug("ERROR:getVersion\t", err);
 		}
 		return -1;
 	}
-
-	private static getOs(userAgent: string): OsType {
+	
+	private static getOS(userAgent: string): OsType {
 		switch (true) {
 			case /(windows nt 5\.1)|(windows xp)/i.test(userAgent):
 			case /windows nt 6\.0/i.test(userAgent):
@@ -150,5 +150,19 @@ export class BrowserInfo {
 			default:
 				return OsType.unknown;
 		}
+	}
+	
+	public getWidth(): number {
+		const body = document.body;
+		const html = document.documentElement;
+		
+		return Math.max(body.scrollWidth, body.offsetWidth, body.getBoundingClientRect().width, html.clientWidth, html.scrollWidth, html.offsetWidth);
+	}
+	
+	public getHeight(): number {
+		const body = document.body;
+		const html = document.documentElement;
+		
+		return Math.max(body.scrollHeight, body.offsetHeight, body.getBoundingClientRect().height, html.clientHeight, html.scrollHeight, html.offsetHeight);
 	}
 }

@@ -4,7 +4,7 @@ import { MenuItemsDataController } from "./controllers/menu-items-data-controlle
 import { UserInfo } from "../../view-models/user-info";
 import { UserController } from "./controllers/users-info-controller";
 import { SettingsRetriever } from './controllers/settings-controller';
-import { Constants } from '../../constants';
+import { Constants } from '../constants-service/constants.service';
 import { LogoutResult } from '../../view-models/logout-result';
 import { AuthController } from './controllers/auth-controller';
 
@@ -19,8 +19,8 @@ export class ApiService {
 	private settingsCtrl: SettingsRetriever;
 	private authCtrl: AuthController;
 	
-	public constructor(http: Http) {
-		this.apiUrl        = Constants.getApiUrl();
+	public constructor(http: Http, constants: Constants) {
+		this.apiUrl        = constants.getApiUrl();
 		this.http          = http;
 		this.menuItemsCtrl = new MenuItemsDataController(this.apiUrl, http);
 		this.usersInfoCtrl = new UserController(this.apiUrl, this.http);

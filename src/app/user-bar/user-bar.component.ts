@@ -2,7 +2,7 @@ import { Component, OnInit, ViewChild, AfterViewInit, ElementRef } from '@angula
 import { BrowserInfoService } from '../services/browser-info-service/browser-info.service';
 import { UserInfo } from '../view-models/user-info';
 import { EventBusService } from '../services/message-bus-service/event-bus.service';
-import { Constants } from '../constants';
+import { Constants } from '../services/constants-service/constants.service';
 import { LogoutResult } from '../view-models/logout-result';
 import { LogoutStatus } from '../view-models/logout-status';
 import { ApiService } from '../services/api-service/api.service';
@@ -30,11 +30,13 @@ export class UserBarComponent implements OnInit, AfterViewInit {
 	@ViewChild('loginTitle')
 	private loginTitle: ElementRef;
 	private eventBus: EventBusService;
+	private constants: Constants;
 	
-	public constructor(api: ApiService, browserInfo: BrowserInfoService, eventBus: EventBusService) {
+	public constructor(api: ApiService, browserInfo: BrowserInfoService, eventBus: EventBusService, constants: Constants) {
 		this.api = api;
 		this.browserInfo  = browserInfo;
 		this.eventBus     = eventBus;
+		this.constants = constants;
 		
 		const self = this;
 		this.user  = new UserInfo();
@@ -43,7 +45,7 @@ export class UserBarComponent implements OnInit, AfterViewInit {
 			self.setUserData(user);
 		});
 		
-		eventBus.subscribe(Constants.eventBusEvents.SOMEWHERE_CLICKED, UserBarComponent.somewhereClickedHandler, this);
+		eventBus.subscribe(constants.eventBusEvents.SOMEWHERE_CLICKED, UserBarComponent.somewhereClickedHandler, this);
 	}
 	
 	public ngOnInit(): void {
@@ -95,6 +97,8 @@ export class UserBarComponent implements OnInit, AfterViewInit {
 		
 		if (to.classList.contains('user-bar__picture') ||
 			to.classList.contains('user-bar__user-name') ||
+			to.classList.contains('user-bar__user-menu__ul') ||
+			to.classList.contains('user-bar__user-menu__item') ||
 			to.id === 'user-bar__user-menu') {
 			return;
 		} else {
@@ -109,10 +113,10 @@ export class UserBarComponent implements OnInit, AfterViewInit {
 			if(result.logoutStatus == LogoutStatus.Success) {
 				location.href = "/";
 			} else {
-				self.eventBus.raise(Constants.eventBusEvents.ERROR_EVENT_NAME, self, ["Logout error", result.description]);
+				self.eventBus.raise(this.constants.eventBusEvents.ERROR_EVENT_NAME, self, ["Logout error", result.description]);
 			}
 		}, error => {
-			self.eventBus.raise(Constants.eventBusEvents.ERROR_EVENT_NAME, self, ["Logout error", error.message]);
+			self.eventBus.raise(this.constants.eventBusEvents.ERROR_EVENT_NAME, self, ["Logout error", error.message]);
 		});
 	}
 }

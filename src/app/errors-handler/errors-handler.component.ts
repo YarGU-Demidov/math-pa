@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewChild, ElementRef } from "@angular/core";
 import { EventBusService } from "../services/message-bus-service/event-bus.service";
-import { Constants } from "../constants";
+import { Constants } from "../services/constants-service/constants.service";
 
 @Component({
 	selector   : 'error',
@@ -19,28 +19,28 @@ export class ErrorsHandlerComponent implements OnInit {
 	
 	private eventBus: EventBusService;
 	
-	public constructor (eventBus: EventBusService) {
+	public constructor(eventBus: EventBusService, constants: Constants) {
 		this.eventBus = eventBus;
-		eventBus.subscribe(Constants.eventBusEvents.CRITICAL_ERROR_EVENT_NAME, ErrorsHandlerComponent.criticalErrorsHandler, this);
-		eventBus.subscribe(Constants.eventBusEvents.ERROR_EVENT_NAME, ErrorsHandlerComponent.simpleErrorsHandler, this);
+		eventBus.subscribe(constants.eventBusEvents.CRITICAL_ERROR_EVENT_NAME, ErrorsHandlerComponent.criticalErrorsHandler, this);
+		eventBus.subscribe(constants.eventBusEvents.ERROR_EVENT_NAME, ErrorsHandlerComponent.simpleErrorsHandler, this);
 	}
 	
-	private static criticalErrorsHandler (message: string, thisContext: ErrorsHandlerComponent): void {
+	private static criticalErrorsHandler(message: string, thisContext: ErrorsHandlerComponent): void {
 		thisContext.criticalVisibility = true;
 		thisContext.criticalBody       = message;
 	}
 	
-	private static simpleErrorsHandler (title: string, message: string, thisContext: ErrorsHandlerComponent): void {
+	private static simpleErrorsHandler(title: string, message: string, thisContext: ErrorsHandlerComponent): void {
 		thisContext.criticalVisibility = true;
 		thisContext.simpleTitle        = title;
 		thisContext.criticalBody       = message;
 	}
 	
-	private static warningsHandler (): void {
+	private static warningsHandler(): void {
 		
 	}
 	
-	public ngOnInit (): void {
+	public ngOnInit(): void {
 		
 	}
 	

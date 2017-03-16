@@ -25,7 +25,7 @@ export class EventBusService {
 	 * @param {string} eventName Event name.
 	 *
 	 * @return {boolean} Returns true if event exists, otherwise - false.
-	 * */
+	 */
 	public eventExists(eventName: string): boolean {
 		return !!this.events[eventName];
 	}
@@ -35,7 +35,7 @@ export class EventBusService {
 	 * @param {string} eventName Event name.
 	 *
 	 * @return {EventBusService} Current service .
-	 * */
+	 */
 	public createEvent(eventName: string): EventBusService {
 		if (this.eventExists(eventName))
 			throw Error(`Event ${eventName} already exists.`);
@@ -44,6 +44,18 @@ export class EventBusService {
 
 		return this;
 	}
+	
+	/**
+	 * Creates event if it does not exists.
+	 * @param {string} eventName Event name.
+	 *
+	 * @return {EventBusService} Current service .
+	 */
+	public createEventIfNotExists(eventName: string): EventBusService {
+		return this.eventExists(eventName)
+			? this
+			: this.createEvent(eventName);
+	}
 
 	/**
 	 * Allows to subscribe to concrete event.
@@ -51,7 +63,7 @@ export class EventBusService {
 	 * @param {Function} handler Your event handler.
 	 * @param additionalContext Your additional context.
 	 * @return {number} Event Id.
-	 * */
+	 */
 	public subscribe(eventName: string, handler: Function, additionalContext: Object = null): number {
 		let eventHandlers = this.events[eventName];
 		const id          = this.lastId++;
@@ -71,7 +83,7 @@ export class EventBusService {
 	 * @param {string} eventName Event name.
 	 * @param {Object} context Your context for handlers.
 	 * @param {Array} args Your args for handlers.
-	 * */
+	 */
 	public raise(eventName: string, context: Object, args: Object[]): void {
 		const handlers = this.events[eventName];
 		if (handlers) {
@@ -84,7 +96,7 @@ export class EventBusService {
 	/**
 	 * Unsubscribes your single handler or all of your handlers from event.
 	 * @param {number|string} idOrName Id of your handler or event name.
-	 * */
+	 */
 	public unsubscribe(idOrName: number|string): void {
 		if (typeof idOrName == 'number') {
 			const id: number = idOrName;

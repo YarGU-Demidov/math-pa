@@ -2,18 +2,19 @@
 
 #right-side
 	position: relative
-	height: 100%
 	display: block
+	height: 100%
 	width: 100%
 	padding-left: $sidebarWidth
+	transition: $sidebarAnimationTime
+	&.collapsed
+		padding-left: $sidebarCollapsedWidth
+		transition: $sidebarAnimationTime
+	&.normal
+		padding-left: $sidebarWidth
+		transition: $sidebarAnimationTime
 	#content
 		width: 100%
 		height: 100%
 		background-color: $contentBackgroundColor
-
-
-@media all and (max-width: 500px)
-	#global-sidebar
-		width: 68px
-	#right-side
-		padding-left: $sidebarCollapsedWidth
+		min-width: 262px

@@ -1,8 +1,6 @@
-<div id="right-side" [@sidebarState]="sidebarState" #contentArea>
+<div id="right-side" #contentArea [class]="browserInfo.isMobile || browserInfo.getWidth() < constants.minWindowWidthForSidebarOpenedDefault ? 'collapsed' : 'normal'">
 	<div id="content">
-		<user-bar *ngIf="!isMobile"></user-bar>
-		
-		<p>{{ sidebarState }}</p>
+		<user-bar *ngIf="!browserInfo.isMobile"></user-bar>
 		<p>
 			global-content works!
 		</p>

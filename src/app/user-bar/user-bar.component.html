@@ -3,10 +3,10 @@
 	<div #userMenu id="user-bar__user-menu">
 		<div class="user-bar__picture"></div>
 		<div class="user-bar__user-name">{{ user.name + ' ' + user.middleName + ' ' + user.surname }}</div>
-		<ul>
-			<li>test_1</li>
-			<li>test_2</li>
-			<li>
+		<ul class="user-bar__user-menu__ul">
+			<li class="user-bar__user-menu__item">test_1</li>
+			<li class="user-bar__user-menu__item">test_2</li>
+			<li class="user-bar__user-menu__item">
 				<a (click)="logout()">Logout</a>
 			</li>
 		</ul>

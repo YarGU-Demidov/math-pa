@@ -1,59 +1,57 @@
-import {
-	Component, OnInit, Input, trigger, state, style, transition, animate, ElementRef,
-	ViewChild
-} from '@angular/core';
+import { Component, OnInit, ElementRef, ViewChild, AfterViewInit } from '@angular/core';
 import { EventBusService } from '../services/message-bus-service/event-bus.service';
 import { MenuItemComponent } from '../menu-item/menu-item.component';
-import { Constants } from "../constants";
+import { Constants } from "../services/constants-service/constants.service";
 import { BrowserInfoService } from '../services/browser-info-service/browser-info.service';
+import { BrowserInfo } from '../services/browser-info-service/browser-info';
 
 @Component({
 	selector   : 'global-content',
 	templateUrl: './global-content.component.html',
-	styleUrls  : ['global-content.component.sass'],
-	animations : [
-		trigger('sidebarState', [
-			state('collapsed', style({
-				paddingLeft: '58px'
-			})),
-			state('normal', style({
-				paddingLeft: '250px'
-			})),
-			transition('collapsed => normal', animate('100ms ease-in')),
-			transition('normal => collapsed', animate('100ms ease-in'))
-		])
-	]
+	styleUrls  : ['global-content.component.sass']
 })
-export class GlobalContentComponent implements OnInit {
-
-	@Input()
-	public sidebarState = 'normal';
-	@Input()
-	public defaultState = 'normal';
-
-
+export class GlobalContentComponent implements OnInit, AfterViewInit {
+	
 	@ViewChild('text')
 	private text: ElementRef;
+	@ViewChild('contentArea')
+	private contentArea: ElementRef;
+	
 	private eventBus: EventBusService;
-
+	
 	private count: number = 0;
 	private clickedText: string;
+	private browserInfo: BrowserInfo;
+	private constants: Constants;
 	
-	private isMobile = false;
-
-	constructor(eventBus: EventBusService, browserInfo: BrowserInfoService) {
-		this.eventBus = eventBus;
+	constructor(eventBus: EventBusService, browserInfo: BrowserInfoService, constants: Constants) {
+		this.eventBus    = eventBus;
+		this.constants   = constants;
+		this.browserInfo = browserInfo.getBrowserInfo();
 		
-		this.isMobile = browserInfo.getBrowserInfo().isMobile;
-
-		eventBus.subscribe(Constants.eventBusEvents.MENU_ITEM_CLICK, (active: MenuItemComponent) => {
+		eventBus.subscribe(this.constants.eventBusEvents.MENU_ITEM_CLICK, (active: MenuItemComponent) => {
 			this.text.nativeElement.innerHTML = active.item.name;
-			this.clickedText = `Clicked: ${++this.count}`;
+			this.clickedText                  = `Clicked: ${++this.count}`;
+		});
+		
+		eventBus.subscribe(this.constants.eventBusEvents.SIDEBAR_TOGGLE, (currentState: string, previousState: string) => {
+			this.toggleArea(currentState, previousState);
 		});
 	}
-
+	
 	public ngOnInit(): void {
-		this.sidebarState = this.defaultState;
+		
 	}
-
+	
+	private toggleArea(currentState: string, previousState: string) {
+		this.contentArea.nativeElement.classList.remove(previousState);
+		this.contentArea.nativeElement.classList.add(currentState);
+	}
+	
+	public ngAfterViewInit(): void {
+		if (this.browserInfo.isMobile) {
+			this.toggleArea('collapsed', 'normal');
+		}
+	}
+	
 }

@@ -2,7 +2,7 @@ import { Component, Input, ViewChild, ElementRef, OnInit, AfterViewInit, OnDestr
 import { EventBusService } from "../services/message-bus-service/event-bus.service";
 import { BrowserInfoService } from "../services/browser-info-service/browser-info.service";
 import { MenuItemData } from "../view-models/menu-item-data";
-import { Constants } from "../constants";
+import { Constants } from "../services/constants-service/constants.service";
 
 
 @Component({
@@ -25,21 +25,23 @@ export class MenuItemComponent implements OnInit, AfterViewInit, OnDestroy {
 	private extendedMenu: ElementRef;
 
 	private browserInfo: BrowserInfoService;
+	private constants: Constants;
 
-	constructor(eventBus: EventBusService, browserInfo: BrowserInfoService) {
+	constructor(eventBus: EventBusService, browserInfo: BrowserInfoService, constants: Constants) {
 		this.browserInfo = browserInfo;
+		this.constants = constants;
 		const self       = this;
 
 		self.eventBus = eventBus;
 
-		eventBus.subscribe(Constants.eventBusEvents.MENU_ITEM_CLICK, (activeItem: MenuItemComponent) => {
+		eventBus.subscribe(constants.eventBusEvents.MENU_ITEM_CLICK, (activeItem: MenuItemComponent) => {
 			if (activeItem === self) {
 				return;
 			}
 			self.close();
 		});
 
-		this.eventId = eventBus.subscribe(Constants.eventBusEvents.SOMEWHERE_CLICKED, ($event: MouseEvent) => {
+		this.eventId = eventBus.subscribe(constants.eventBusEvents.SOMEWHERE_CLICKED, ($event: MouseEvent) => {
 			if (self.opened && !($event.toElement.classList.contains('sub-item') ||
 				$event.toElement.classList.contains('sub-sub-item') ||
 				$event.toElement.classList.contains('menu-content') ||
@@ -52,8 +54,8 @@ export class MenuItemComponent implements OnInit, AfterViewInit, OnDestroy {
 
 	public ngOnInit(): void {
 		this.extendedWidth = !this.browserInfo.getBrowserInfo().isMobile
-			? Constants.extendedMenuColumnWidth * this.item.subItems.length + 'px'
-			: Constants.extendedMenuColumnWidth + 'px';
+			? this.constants.extendedMenuColumnWidth * this.item.subItems.length + 'px'
+			: this.constants.extendedMenuColumnWidth + 'px';
 	}
 
 	public ngAfterViewInit(): void {
@@ -76,7 +78,7 @@ export class MenuItemComponent implements OnInit, AfterViewInit, OnDestroy {
 			element.classList.remove('collapsed');
 		}
 
-		this.eventBus.raise(Constants.eventBusEvents.MENU_ITEM_CLICK, this, [this]);
+		this.eventBus.raise(this.constants.eventBusEvents.MENU_ITEM_CLICK, this, [this]);
 	}
 
 	public close() {

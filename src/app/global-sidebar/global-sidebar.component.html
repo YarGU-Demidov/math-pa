@@ -1,4 +1,4 @@
-<div id="global-sidebar" [class]="userToggled">
+<div #globalSidebar id="global-sidebar" [class]="browserInfo.isMobile  || browserInfo.getWidth() < constants.minWindowWidthForSidebarOpenedDefault ? 'collapsed' : 'normal'">
 	<div class="logo-wrapper">
 		<div id="logo-block" class="menu-item">
 			<div id="toggle-btn" (click)="toggled()" class="icon">

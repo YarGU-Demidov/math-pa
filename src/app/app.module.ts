@@ -13,6 +13,7 @@ import { BrowserInfoService } from "./services/browser-info-service/browser-info
 import { ErrorsHandlerComponent } from './errors-handler/errors-handler.component';
 import { UserBarComponent } from './user-bar/user-bar.component';
 import { ApiService } from './services/api-service/api.service';
+import { Constants } from './services/constants-service/constants.service';
 
 @NgModule({
 	declarations: [
@@ -31,6 +32,7 @@ import { ApiService } from './services/api-service/api.service';
 		JsonpModule
 	],
 	providers   : [
+		Constants,
 		TitleService,
 		ApiService,
 		EventBusService,
