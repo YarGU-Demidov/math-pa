@@ -1,0 +1,9 @@
+<div class="sub-item">
+	{{subItem.name}}
+	
+	<div *ngIf="subItem.subItems !== null && subItem.subItems.length == 1">
+			<menu-sub-item *ngFor="let subSubItem of getCurrentItems(subItem.subItems)" [subItem]="subSubItem" class="sub-sub-item">
+			{{ subSubItem.name }}
+		</menu-sub-item>
+	</div>
+</div>

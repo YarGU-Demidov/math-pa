@@ -1,12 +1,12 @@
-import { Component, OnInit, ViewChild, ElementRef, AfterViewInit } from "@angular/core";
-import { MenuItemData } from "../view-models/menu-item-data";
-import { EventBusService } from "../services/message-bus-service/event-bus.service";
-import { Constants } from '../services/constants-service/constants.service';
-import { ApiService } from '../services/api-service/api.service';
-import { BrowserInfoService } from '../services/browser-info-service/browser-info.service';
-import { BrowserInfo } from '../services/browser-info-service/browser-info';
+import { Component, OnInit, ViewChild, ElementRef, AfterViewInit } from '@angular/core';
+import { MenuItemData } from '../../view-models/menu-item-data';
+import { EventBusService } from '../../services/message-bus-service/event-bus.service';
+import { ApiService } from '../../services/api-service/api.service';
+import { BrowserInfoService } from '../../services/browser-info-service/browser-info.service';
+import { BrowserInfo } from '../../services/browser-info-service/browser-info';
+import { Constants } from '../../services/constants-service/constants.service';
 
-declare let $: any;
+declare const $: any;
 
 @Component({
 	selector   : 'global-sidebar',
@@ -27,12 +27,32 @@ export class GlobalSideBarComponent implements OnInit, AfterViewInit {
 	private browserInfo: BrowserInfo;
 	private constants: Constants;
 	
+	private static getOppositeState(userToggled: string): string {
+		return userToggled === 'collapsed' ? 'normal' : 'collapsed';
+	}
+	
+	private static onSidebarToggledHandler(now: string, was: string, self: GlobalSideBarComponent): void {
+		const elem: HTMLDivElement = self.globalSidebar.nativeElement;
+		elem.classList.remove(was);
+		elem.classList.add(now);
+		self.userToggled = now;
+	}
+	
+	private static onWindowResizeHandler(event: Event, height: number, width: number, context: GlobalSideBarComponent): void {
+		if (width < context.constants.minWindowWidthForSidebarOpenedDefault) {
+			context.hideSidebar();
+		} else {
+			context.showSidebar();
+		}
+	}
+	
 	constructor(eventBus: EventBusService, api: ApiService, browserInfo: BrowserInfoService, constants: Constants) {
 		this.constants   = constants;
 		this.browserInfo = browserInfo.getBrowserInfo();
-		let self         = this;
 		this.eventBus    = eventBus;
 		this.api         = api;
+		
+		const self = this;
 		
 		api.menuItemsData().getAll().then((data: Array<MenuItemData>) => {
 			self.menuItems = data;
@@ -48,11 +68,11 @@ export class GlobalSideBarComponent implements OnInit, AfterViewInit {
 	}
 	
 	public ngAfterViewInit(): void {
-		let self = this;
+		const self = this;
 		setTimeout(() => {
 			$(self.menuBlock.nativeElement).mCustomScrollbar({
-				axis         : "y",
-				theme        : "minimal",
+				axis         : 'y',
+				theme        : 'minimal',
 				setTop       : 0,
 				scrollInertia: 200
 			});
@@ -63,39 +83,25 @@ export class GlobalSideBarComponent implements OnInit, AfterViewInit {
 		});
 	}
 	
-	private static onWindowResizeHandler(event: Event, height: number, width: number, context: GlobalSideBarComponent): void {
-		if (width < context.constants.minWindowWidthForSidebarOpenedDefault) {
-			context.hideSidebar();
-		} else {
-			context.showSidebar();
-		}
-	}
-	
-	private static onSidebarToggledHandler(now: string, was: string, self: GlobalSideBarComponent): void {
-		const elem: HTMLDivElement = self.globalSidebar.nativeElement;
-		elem.classList.remove(was);
-		elem.classList.add(now);
-		self.userToggled = now;
-	}
-	
 	private hideSidebar(): void {
-		let now = 'collapsed',
+		const now = 'collapsed',
 			was = 'normal';
 		this.eventBus.raise(this.constants.eventBusEvents.SIDEBAR_TOGGLE, this, [now, was]);
 	}
 	
+	
 	private showSidebar(): void {
-		let now = 'normal',
+		const now = 'normal',
 			was = 'collapsed';
 		this.eventBus.raise(this.constants.eventBusEvents.SIDEBAR_TOGGLE, this, [now, was]);
 	}
 	
-	private static getOppositeState(userToggled: string): string {
-		return userToggled === 'collapsed' ? 'normal' : 'collapsed';
-	}
-	
 	public toggled() {
-		this.eventBus.raise(this.constants.eventBusEvents.SIDEBAR_TOGGLE, this, [GlobalSideBarComponent.getOppositeState(this.userToggled), this.userToggled]);
+		this.eventBus.raise(this.constants.eventBusEvents.SIDEBAR_TOGGLE, this, [
+			GlobalSideBarComponent.getOppositeState(this.userToggled),
+			this.userToggled
+		]);
+		
+		
 	}
-	
 }

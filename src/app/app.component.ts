@@ -1,10 +1,10 @@
-import { Component, OnInit } from "@angular/core";
-import { TitleService } from "./services/title-service/title.service";
-import { EventBusService } from "./services/message-bus-service/event-bus.service";
-import { BrowserInfoService } from "./services/browser-info-service/browser-info.service";
+import { Component, OnInit } from '@angular/core';
+import { TitleService } from './services/title-service/title.service';
+import { EventBusService } from './services/message-bus-service/event-bus.service';
+import { BrowserInfoService } from './services/browser-info-service/browser-info.service';
 import { Constants } from './services/constants-service/constants.service';
 
-declare let $: any;
+declare const $: any;
 
 enum PageMode {
 	Extended,
@@ -40,11 +40,11 @@ export class AppComponent implements OnInit {
 	public getPageMode(): string {
 		switch (this.pageMode) {
 			case PageMode.Extended:
-				return "extended";
+				return 'extended';
 			case PageMode.FullWidth:
-				return "full-width";
+				return 'full-width';
 			case PageMode.Normal:
-				return "";
+				return '';
 			default:
 				throw new Error('Out of range');
 		}
@@ -63,6 +63,6 @@ export class AppComponent implements OnInit {
 			});
 		}
 		
-		this.titleService.setTitle("Главная страница");
+		this.titleService.setTitle('Главная страница');
 	}
 }

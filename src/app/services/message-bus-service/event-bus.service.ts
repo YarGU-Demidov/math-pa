@@ -6,20 +6,22 @@ import { EventsStorage } from './events-storage-interface';
 export class EventBusService {
 	private lastId: number;
 	private events: EventsStorage;
-
+	
 	public constructor() {
-		if (window['__eventBusCount'] && typeof window['__eventBusCount'] === 'number')
+		if (window['__eventBusCount'] && typeof window['__eventBusCount'] === 'number') {
 			window['__eventBusCount']++;
-		else
+		} else {
 			window['__eventBusCount'] = 1;
-
-		if(window['__eventBusCount'] > 1)
+		}
+		
+		if (window['__eventBusCount'] > 1) {
 			throw new Error(`There's too much Event Buses. You need to use already created.`);
-
+		}
+		
 		this.events = {};
 		this.lastId = 1;
 	}
-
+	
 	/**
 	 * Checks if event exists.
 	 * @param {string} eventName Event name.
@@ -29,7 +31,7 @@ export class EventBusService {
 	public eventExists(eventName: string): boolean {
 		return !!this.events[eventName];
 	}
-
+	
 	/**
 	 * Creates event.
 	 * @param {string} eventName Event name.
@@ -37,11 +39,12 @@ export class EventBusService {
 	 * @return {EventBusService} Current service .
 	 */
 	public createEvent(eventName: string): EventBusService {
-		if (this.eventExists(eventName))
+		if (this.eventExists(eventName)) {
 			throw Error(`Event ${eventName} already exists.`);
-
+		}
+		
 		this.events[eventName] = new HandlersStorage();
-
+		
 		return this;
 	}
 	
@@ -56,7 +59,7 @@ export class EventBusService {
 			? this
 			: this.createEvent(eventName);
 	}
-
+	
 	/**
 	 * Allows to subscribe to concrete event.
 	 * @param {string} eventName Event name.
@@ -67,17 +70,17 @@ export class EventBusService {
 	public subscribe(eventName: string, handler: Function, additionalContext: Object = null): number {
 		let eventHandlers = this.events[eventName];
 		const id          = this.lastId++;
-
+		
 		if (!eventHandlers) {
 			this.createEvent(eventName);
 			eventHandlers = this.events[eventName];
 		}
-
+		
 		eventHandlers.add(id, handler, additionalContext);
-
+		
 		return id;
 	}
-
+	
 	/**
 	 * Raises event with context and args.
 	 * @param {string} eventName Event name.
@@ -92,25 +95,26 @@ export class EventBusService {
 			throw new Error(`There's no event with name ${eventName}.`);
 		}
 	}
-
+	
 	/**
 	 * Unsubscribes your single handler or all of your handlers from event.
 	 * @param {number|string} idOrName Id of your handler or event name.
 	 */
 	public unsubscribe(idOrName: number|string): void {
-		if (typeof idOrName == 'number') {
+		if (typeof idOrName === 'number') {
 			const id: number = idOrName;
-			for(let eventName in this.events) {
-				let event = this.events[eventName];
-
-				if(event.containsId(id)){
-					event.remove(id);
-
-					return;
+			for ( const eventName in this.events ) {
+				if (this.events.hasOwnProperty(eventName)) {
+					const event = this.events[eventName];
+					
+					if (event.containsId(id)) {
+						event.remove(id);
+						
+						return;
+					}
 				}
 			}
-		}
-		else {
+		} else {
 			this.events[idOrName].removeAll();
 		}
 	}

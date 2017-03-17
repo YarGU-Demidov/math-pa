@@ -14,6 +14,8 @@ export class Constants {
 	
 	public extendedMenuColumnWidth: number = 200;
 	
+	public minWindowWidthForSidebarOpenedDefault = 900;
+	
 	public getApiUrl(): string {
 		if (environment.production) {
 			return `${location.protocol}//${location.host}/Api`;
@@ -21,6 +23,4 @@ export class Constants {
 			return `http://localhost:5000/Api`;
 		}
 	}
-	
-	public minWindowWidthForSidebarOpenedDefault = 900;
 }

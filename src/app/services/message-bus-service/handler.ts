@@ -14,9 +14,12 @@ export class Handler {
 	}
 
 	public raise(context: Object, args: Object[]) {
+		const argumentsArray = args.slice();
+		
 		if (this.additionalContext) {
-			args.push(this.additionalContext);
+			argumentsArray.push(this.additionalContext);
 		}
-		this.handler.apply(context, args);
+		
+		this.handler.apply(context, argumentsArray);
 	}
 }
