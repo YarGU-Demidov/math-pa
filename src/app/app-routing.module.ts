@@ -3,6 +3,7 @@ import { Routes, RouterModule } from '@angular/router';
 import { UsersControllerComponent } from './routes/users-controller/users-controller.component';
 import { HomeViewComponent } from './routes/home-view/home-view.component';
 import { SiteSettingsComponent } from './routes/site-settings/site-settings.component';
+import { GroupsControllerComponent } from './routes/groups-controller/groups-controller.component';
 
 const routes: Routes = [
 	{
@@ -13,6 +14,11 @@ const routes: Routes = [
 	{
 		path: 'users',
 		component: UsersControllerComponent,
+		children: []
+	},
+	{
+		path: 'groups',
+		component: GroupsControllerComponent,
 		children: []
 	},
 	{

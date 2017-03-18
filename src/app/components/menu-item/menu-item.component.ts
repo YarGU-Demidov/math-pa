@@ -5,18 +5,17 @@ import { MenuItemData } from '../../view-models/menu-item-data';
 import { Constants } from '../../services/constants-service/constants.service';
 import { Router } from '@angular/router';
 
-
 @Component({
 	selector   : 'menu-item',
 	templateUrl: 'menu-item.component.html',
 	styleUrls  : ['menu-item.component.sass']
 })
 export class MenuItemComponent implements OnInit, AfterViewInit, OnDestroy {
-
+	
 	private eventId: number;
-
+	
 	public extendedWidth: string = '0px';
-
+	
 	@Input()
 	public item: MenuItemData;
 	
@@ -37,7 +36,7 @@ export class MenuItemComponent implements OnInit, AfterViewInit, OnDestroy {
 						self.close();
 					}
 				}, (error: Error) => {
-					self.eventBus.raise(self.constants.eventBusEvents.ERROR_EVENT_NAME, self, [error.message]);
+					self.eventBus.raise(self.constants.eventBusEvents.ERROR_EVENT_NAME, self, [`Can't go to route.`, error.message]);
 				});
 			}
 			
@@ -74,7 +73,7 @@ export class MenuItemComponent implements OnInit, AfterViewInit, OnDestroy {
 	}
 	
 	public ngAfterViewInit(): void {
-
+		
 		if (this.browserInfo.getBrowserInfo().isMobile) {
 			const elem: HTMLDivElement = this.extendedMenu.nativeElement;
 			if (!elem.classList.contains('mobile')) {
@@ -92,7 +91,7 @@ export class MenuItemComponent implements OnInit, AfterViewInit, OnDestroy {
 			this.opened = true;
 			element.classList.remove('collapsed');
 		}
-
+		
 		this.eventBus.raise(this.constants.eventBusEvents.MENU_ITEM_CLICK, this, [this]);
 	}
 	
@@ -104,8 +103,14 @@ export class MenuItemComponent implements OnInit, AfterViewInit, OnDestroy {
 				self.close();
 			}
 		}, (error: Error) => {
-			self.eventBus.raise(self.constants.eventBusEvents.ERROR_EVENT_NAME, self, [error.message]);
+			self.eventBus.raise(self.constants.eventBusEvents.ERROR_EVENT_NAME, self, [`Can't go to route.`, error.message]);
 		});
+	}
+	
+	public onSubItemNavigated(navigated: boolean): void {
+		if (navigated) {
+			this.close();
+		}
 	}
 	
 	public close() {

@@ -16,9 +16,10 @@
 			{{item.name}}
 		</div>
 	</div>
+	
 	<div *ngIf="item.subItems !== null && item.subItems.length > 0" class="sub-items">
 		<div *ngFor="let columnItems of item.subItems" [ngStyle]="{'width': constants.extendedMenuColumnWidth+'px'}">
-			<menu-sub-item *ngFor="let subItem of columnItems" [subItem]="subItem"></menu-sub-item>
+			<menu-sub-item *ngFor="let subItem of columnItems" [subItem]="subItem" (navigated)="onSubItemNavigated($event)"></menu-sub-item>
 		</div>
 	</div>
 </div>

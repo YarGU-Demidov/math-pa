@@ -1,4 +1,4 @@
-<div class="sub-item">
+<div class="sub-item" (click)="onItemClick()">
 	{{subItem.name}}
 	
 	<div *ngIf="subItem.subItems !== null && subItem.subItems.length == 1">

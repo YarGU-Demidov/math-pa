@@ -25,9 +25,9 @@ export class ErrorsHandlerComponent implements OnInit {
 	}
 	
 	private static simpleErrorsHandler(title: string, message: string, thisContext: ErrorsHandlerComponent): void {
-		thisContext.criticalVisibility = true;
+		thisContext.simpleVisibility = true;
 		thisContext.simpleTitle = title;
-		thisContext.criticalBody = message;
+		thisContext.simpleBody = message;
 	}
 	
 	private static warningsHandler(): void {

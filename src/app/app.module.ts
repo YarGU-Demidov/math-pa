@@ -18,6 +18,7 @@ import { UsersControllerComponent } from './routes/users-controller/users-contro
 import { HomeViewComponent } from './routes/home-view/home-view.component';
 import { SiteSettingsComponent } from './routes/site-settings/site-settings.component';
 import { MenuSubItemComponent } from './components/menu-sub-item/menu-sub-item.component';
+import { GroupsControllerComponent } from './routes/groups-controller/groups-controller.component';
 
 @NgModule({
 	declarations: [
@@ -28,6 +29,7 @@ import { MenuSubItemComponent } from './components/menu-sub-item/menu-sub-item.c
 		ErrorsHandlerComponent,
 		UserBarComponent,
 		UsersControllerComponent,
+		GroupsControllerComponent,
 		HomeViewComponent,
 		SiteSettingsComponent,
 		MenuSubItemComponent

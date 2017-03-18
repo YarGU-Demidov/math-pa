@@ -11,10 +11,8 @@
 	</div>
 	
 	<div id="menu-block" #menuBlock>
-		<ul>
-			<li *ngFor="let item of menuItems">
-				<menu-item [item]="item"></menu-item>
-			</li>
-		</ul>
+		<div *ngFor="let item of menuItems">
+			<menu-item [item]="item"></menu-item>
+		</div>
 	</div>
 </div>
