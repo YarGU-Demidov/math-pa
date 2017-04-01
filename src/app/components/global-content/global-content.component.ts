@@ -1,8 +1,8 @@
 import { Component, OnInit, ElementRef, ViewChild, AfterViewInit } from '@angular/core';
-import { EventBusService } from '../../services/message-bus-service/event-bus.service';
-import { Constants } from '../../services/constants-service/constants.service';
-import { BrowserInfoService } from '../../services/browser-info-service/browser-info.service';
-import { BrowserInfo } from '../../services/browser-info-service/browser-info';
+import { EventBusService } from '../../../core/services/message-bus-service/event-bus.service';
+import { Constants } from '../../../core/services/constants-service/constants.service';
+import { BrowserInfoService } from '../../../core/services/browser-info-service/browser-info.service';
+import { BrowserInfo } from '../../../core/services/browser-info-service/browser-info';
 
 @Component({
 	selector   : 'global-content',

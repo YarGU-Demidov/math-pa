@@ -1,9 +1,10 @@
 import { Component, Input, ViewChild, ElementRef, OnInit, AfterViewInit, OnDestroy } from '@angular/core';
-import { EventBusService } from '../../services/message-bus-service/event-bus.service';
-import { BrowserInfoService } from '../../services/browser-info-service/browser-info.service';
-import { MenuItemData } from '../../view-models/menu-item-data';
-import { Constants } from '../../services/constants-service/constants.service';
+import { EventBusService } from '../../../core/services/message-bus-service/event-bus.service';
+import { BrowserInfoService } from '../../../core/services/browser-info-service/browser-info.service';
+import { MenuItemData } from '../../../core/view-models/menu-item-data';
+import { Constants } from '../../../core/services/constants-service/constants.service';
 import { Router } from '@angular/router';
+import { SimpleErrorService } from '../../services/simple-error/simple-error.service';
 
 @Component({
 	selector   : 'menu-item',
@@ -24,9 +25,11 @@ export class MenuItemComponent implements OnInit, AfterViewInit, OnDestroy {
 	
 	@ViewChild('extendedMenu')
 	private extendedMenu: ElementRef;
+	
 	private browserInfo: BrowserInfoService;
 	private constants: Constants;
 	private router: Router;
+	private errorsHandler: SimpleErrorService;
 	
 	private static onItemClick(activeItem: MenuItemComponent, self: MenuItemComponent): void {
 		if (activeItem === self) {
@@ -36,7 +39,7 @@ export class MenuItemComponent implements OnInit, AfterViewInit, OnDestroy {
 						self.close();
 					}
 				}, (error: Error) => {
-					self.eventBus.raise(self.constants.eventBusEvents.ERROR_EVENT_NAME, self, [`Can't go to route.`, error.message]);
+					self.errorsHandler.raiseError(`Can't go to route.`, error.message, self);
 				});
 			}
 			
@@ -56,11 +59,12 @@ export class MenuItemComponent implements OnInit, AfterViewInit, OnDestroy {
 		}
 	}
 	
-	public constructor(eventBus: EventBusService, browserInfo: BrowserInfoService, constants: Constants, router: Router) {
+	public constructor(eventBus: EventBusService, browserInfo: BrowserInfoService, constants: Constants, router: Router, errorsHandler: SimpleErrorService) {
 		this.browserInfo = browserInfo;
 		this.constants = constants;
 		this.eventBus = eventBus;
 		this.router = router;
+		this.errorsHandler = errorsHandler;
 		
 		eventBus.subscribe(constants.eventBusEvents.MENU_ITEM_CLICK, MenuItemComponent.onItemClick, this);
 		this.eventId = eventBus.subscribe(constants.eventBusEvents.SOMEWHERE_CLICKED, MenuItemComponent.onSomewhereClicked, this);
@@ -103,7 +107,7 @@ export class MenuItemComponent implements OnInit, AfterViewInit, OnDestroy {
 				self.close();
 			}
 		}, (error: Error) => {
-			self.eventBus.raise(self.constants.eventBusEvents.ERROR_EVENT_NAME, self, [`Can't go to route.`, error.message]);
+			self.errorsHandler.raiseError(`Can't go to route.`, error.message, self);
 		});
 	}
 	

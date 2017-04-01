@@ -30,6 +30,10 @@ export class ErrorsHandlerComponent implements OnInit {
 		thisContext.simpleBody = message;
 	}
 	
+	private static simpleErrorsCloseHandler(thisContext: ErrorsHandlerComponent): void {
+		thisContext.simpleVisibility = false;
+	}
+	
 	private static warningsHandler(): void {
 		
 	}
@@ -38,6 +42,7 @@ export class ErrorsHandlerComponent implements OnInit {
 		this.eventBus = eventBus;
 		eventBus.subscribe(constants.eventBusEvents.CRITICAL_ERROR_EVENT_NAME, ErrorsHandlerComponent.criticalErrorsHandler, this);
 		eventBus.subscribe(constants.eventBusEvents.ERROR_EVENT_NAME, ErrorsHandlerComponent.simpleErrorsHandler, this);
+		eventBus.subscribe(constants.eventBusEvents.ERROR_EVENT_NAME_CLOSE, ErrorsHandlerComponent.simpleErrorsCloseHandler, this);
 	}
 	
 	public ngOnInit(): void {

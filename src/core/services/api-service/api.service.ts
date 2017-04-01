@@ -1,12 +1,11 @@
-import { Injectable } from "@angular/core";
-import { Http } from "@angular/http";
-import { MenuItemsDataController } from "./controllers/menu-items-data-controller";
-import { UserInfo } from "../../view-models/user-info";
-import { UserController } from "./controllers/users-info-controller";
-import { SettingsRetriever } from './controllers/settings-controller';
-import { Constants } from '../constants-service/constants.service';
-import { LogoutResult } from '../../view-models/logout-result';
+import { Injectable } from '@angular/core';
+import { Http } from '@angular/http';
 import { AuthController } from './controllers/auth-controller';
+import { MenuItemsDataController } from './controllers/menu-items-data-controller';
+import { SettingsRetriever } from './controllers/settings-controller';
+import { UserController } from './controllers/users-info-controller';
+import { Constants } from '../constants-service/constants.service';
+import { UserInfo } from '../../view-models/user-info';
 
 @Injectable()
 export class ApiService {
@@ -20,12 +19,12 @@ export class ApiService {
 	private authCtrl: AuthController;
 	
 	public constructor(http: Http, constants: Constants) {
-		this.apiUrl        = constants.getApiUrl();
-		this.http          = http;
+		this.apiUrl = constants.getApiUrl();
+		this.http = http;
 		this.menuItemsCtrl = new MenuItemsDataController(this.apiUrl, http);
 		this.usersInfoCtrl = new UserController(this.apiUrl, this.http);
-		this.settingsCtrl  = new SettingsRetriever(this.apiUrl, this.http);
-		this.authCtrl      = new AuthController(this.apiUrl, this.http);
+		this.settingsCtrl = new SettingsRetriever(this.apiUrl, this.http);
+		this.authCtrl = new AuthController(this.apiUrl, this.http);
 	}
 	
 	public menuItemsData(): MenuItemsDataController {

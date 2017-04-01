@@ -1,3 +1,16 @@
-<p>
-  users-controller works!
-</p>
+<core-data-list [perPage]="itemsPerPageCount" [dataProvider]="usersProvider">
+	<header core-header>
+		data-list header
+	</header>
+	<footer core-footer>
+		data-list footer
+	</footer>
+	<div core-empty class="empty-list">
+		Сорямба, данных нет.
+	</div>
+	<ng-template let-user core-template>
+		<div class="user-item">
+			{{ user.nick }}
+		</div>
+	</ng-template>
+</core-data-list>

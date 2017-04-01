@@ -1,8 +1,9 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { Router } from '@angular/router';
-import { MenuItemData } from '../../view-models/menu-item-data';
-import { EventBusService } from '../../services/message-bus-service/event-bus.service';
-import { Constants } from '../../services/constants-service/constants.service';
+import { MenuItemData } from '../../../core/view-models/menu-item-data';
+import { EventBusService } from '../../../core/services/message-bus-service/event-bus.service';
+import { Constants } from '../../../core/services/constants-service/constants.service';
+import { SimpleErrorService } from '../../services/simple-error/simple-error.service';
 
 @Component({
 	selector   : 'menu-sub-item',
@@ -20,16 +21,18 @@ export class MenuSubItemComponent implements OnInit {
 	private router: Router;
 	private eventBus: EventBusService;
 	private constants: Constants;
+	private errorsHandler: SimpleErrorService;
 	
-	public constructor(router: Router, eventBus: EventBusService, constants: Constants) {
+	public constructor(router: Router, eventBus: EventBusService, constants: Constants, errorsHandler: SimpleErrorService) {
 		this.router = router;
 		this.eventBus = eventBus;
 		this.constants = constants;
+		this.errorsHandler = errorsHandler;
 		
 	}
 	
 	public ngOnInit(): void {
-		
+	
 	}
 	
 	public getCurrentItems(items: Array<MenuItemData[]>): MenuItemData[] {
@@ -42,7 +45,7 @@ export class MenuSubItemComponent implements OnInit {
 		self.router.navigateByUrl(self.subItem.href).then((navigated) => {
 			self.navigated.emit(Boolean(navigated));
 		}, (error) => {
-			self.eventBus.raise(self.constants.eventBusEvents.ERROR_EVENT_NAME, self, [`Can't go to route.`, error.message]);
+			self.errorsHandler.raiseError(`Can't go to route.`, error.message, self);
 		});
 	}
 }

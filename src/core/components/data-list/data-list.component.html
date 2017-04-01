@@ -1,0 +1,31 @@
+<div class="DataList">
+	<core-loading-status *ngIf="isLoading"></core-loading-status>
+	
+	<div class="DataList__Wrapper">
+		<div class="DataList__Header" *ngIf="header">
+			<ng-content select="[core-header]"></ng-content>
+		</div>
+		
+		<div class="DataList__Content">
+			<div *ngIf="(itemsCount < 1 || items.length < 1) && !isLoading; else withData">
+				<div class="DataList__Empty" *ngIf="empty; else emptyNotSet">
+					<ng-content select="[core-empty]"></ng-content>
+				</div>
+				<ng-template #emptyNotSet>
+					<div class="DataList__Empty">
+						There's no data.
+					</div>
+				</ng-template>
+			</div>
+			<ng-template #withData>
+				<div class="DataList__item" *ngFor="let item of dataToRender; let i = index">
+					<ng-template [core-templateWrapper]="itemTemplate" [item]="item" [index]="i"></ng-template>
+				</div>
+			</ng-template>
+		</div>
+		
+		<div class="DataList__Footer" *ngIf="footer">
+			<ng-content select="[core-footer]"></ng-content>
+		</div>
+	</div>
+</div>

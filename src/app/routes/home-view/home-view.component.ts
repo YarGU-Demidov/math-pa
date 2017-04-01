@@ -1,6 +1,6 @@
 import { Component, OnInit, AfterViewInit } from '@angular/core';
-import { ApiService } from '../../services/api-service/api.service';
-import { UserInfo } from '../../view-models/user-info';
+import { ApiService } from '../../../core/services/api-service/api.service';
+import { UserInfo } from '../../../core/view-models/user-info';
 
 @Component({
 	selector   : 'home-view',
@@ -29,11 +29,11 @@ export class HomeViewComponent implements OnInit, AfterViewInit {
 	}
 	
 	public ngOnInit(): void {
-		
+	
 	}
 	
 	public ngAfterViewInit(): void {
-		
+	
 	}
 	
 }

@@ -1,10 +1,11 @@
 import { Component, OnInit, ViewChild, ElementRef, AfterViewInit } from '@angular/core';
-import { MenuItemData } from '../../view-models/menu-item-data';
-import { EventBusService } from '../../services/message-bus-service/event-bus.service';
-import { ApiService } from '../../services/api-service/api.service';
-import { BrowserInfoService } from '../../services/browser-info-service/browser-info.service';
-import { BrowserInfo } from '../../services/browser-info-service/browser-info';
-import { Constants } from '../../services/constants-service/constants.service';
+import { MenuItemData } from '../../../core/view-models/menu-item-data';
+import { EventBusService } from '../../../core/services/message-bus-service/event-bus.service';
+import { ApiService } from '../../../core/services/api-service/api.service';
+import { BrowserInfoService } from '../../../core/services/browser-info-service/browser-info.service';
+import { BrowserInfo } from '../../../core/services/browser-info-service/browser-info';
+import { Constants } from '../../../core/services/constants-service/constants.service';
+import { CriticalErrorService } from '../../services/critical-error-service/critical-error.service';
 
 declare const $: any;
 
@@ -47,18 +48,19 @@ export class GlobalSideBarComponent implements OnInit, AfterViewInit {
 		}
 	}
 
-	constructor(eventBus: EventBusService, api: ApiService, browserInfo: BrowserInfoService, constants: Constants) {
-		this.constants   = constants;
+	constructor(eventBus: EventBusService, api: ApiService, browserInfo: BrowserInfoService, constants: Constants,
+				criticalErrorService: CriticalErrorService) {
+		this.constants = constants;
 		this.browserInfo = browserInfo.getBrowserInfo();
-		this.eventBus    = eventBus;
-		this.api         = api;
+		this.eventBus = eventBus;
+		this.api = api;
 
 		const self = this;
 
 		api.menuItemsData().getAll().then((data: Array<MenuItemData>) => {
 			self.menuItems = data;
 		}, (error) => {
-			eventBus.raise(constants.eventBusEvents.CRITICAL_ERROR_EVENT_NAME, self, [error.message]);
+			criticalErrorService.raiseError(error.message, self);
 		});
 
 		eventBus.subscribe(constants.eventBusEvents.SIDEBAR_TOGGLE, GlobalSideBarComponent.onSidebarToggledHandler, this);
@@ -89,8 +91,7 @@ export class GlobalSideBarComponent implements OnInit, AfterViewInit {
 			was = 'normal';
 		this.eventBus.raise(this.constants.eventBusEvents.SIDEBAR_TOGGLE, this, [now, was]);
 	}
-
-
+	
 	private showSidebar(): void {
 		const now = 'normal',
 			was = 'collapsed';

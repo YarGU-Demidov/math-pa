@@ -1,11 +1,13 @@
 import { Component, OnInit, AfterViewInit, ViewChild, ElementRef } from '@angular/core';
-import { UserInfo } from '../../view-models/user-info';
-import { ApiService } from '../../services/api-service/api.service';
-import { BrowserInfoService } from '../../services/browser-info-service/browser-info.service';
-import { EventBusService } from '../../services/message-bus-service/event-bus.service';
-import { Constants } from '../../services/constants-service/constants.service';
-import { LogoutResult } from '../../view-models/logout-result';
-import { LogoutStatus } from '../../view-models/logout-status';
+import { UserInfo } from '../../../core/view-models/user-info';
+import { ApiService } from '../../../core/services/api-service/api.service';
+import { BrowserInfoService } from '../../../core/services/browser-info-service/browser-info.service';
+import { EventBusService } from '../../../core/services/message-bus-service/event-bus.service';
+import { Constants } from '../../../core/services/constants-service/constants.service';
+import { LogoutResult } from '../../../core/view-models/logout-result';
+import { LogoutStatus } from '../../../core/view-models/logout-status';
+import { CriticalErrorService } from '../../services/critical-error-service/critical-error.service';
+import { SimpleErrorService } from '../../services/simple-error/simple-error.service';
 
 @Component({
 	selector   : 'user-bar',
@@ -31,7 +33,9 @@ export class UserBarComponent implements OnInit, AfterViewInit {
 	private loginTitle: ElementRef;
 	private eventBus: EventBusService;
 	private constants: Constants;
-
+	private criticalErrorsHandler: CriticalErrorService;
+	private errorsHandler: SimpleErrorService;
+	
 	private static somewhereClickedHandler($event: MouseEvent, context: UserBarComponent): void {
 
 		const to = $event.toElement;
@@ -51,12 +55,15 @@ export class UserBarComponent implements OnInit, AfterViewInit {
 		}
 	}
 
-	public constructor(api: ApiService, browserInfo: BrowserInfoService, eventBus: EventBusService, constants: Constants) {
+	public constructor(api: ApiService, browserInfo: BrowserInfoService, eventBus: EventBusService, constants: Constants,
+						criticalErrorsHandler: CriticalErrorService, errorsHandler: SimpleErrorService) {
 		this.api = api;
 		this.browserInfo = browserInfo;
 		this.eventBus = eventBus;
 		this.constants = constants;
-
+		this.criticalErrorsHandler = criticalErrorsHandler;
+		this.errorsHandler = errorsHandler;
+		
 		const self = this;
 		this.user = new UserInfo();
 
@@ -114,10 +121,10 @@ export class UserBarComponent implements OnInit, AfterViewInit {
 			if (result.logoutStatus === LogoutStatus.Success) {
 				location.href = '/';
 			} else {
-				self.eventBus.raise(this.constants.eventBusEvents.ERROR_EVENT_NAME, self, ['Logout error', result.description]);
+				self.errorsHandler.raiseError('Logout error', result.description, self);
 			}
 		}, error => {
-			self.eventBus.raise(this.constants.eventBusEvents.ERROR_EVENT_NAME, self, ['Logout error', error.message]);
+			self.criticalErrorsHandler.raiseError(error.message, self);
 		});
 	}
 }

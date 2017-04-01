@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { TitleService } from './services/title-service/title.service';
-import { EventBusService } from './services/message-bus-service/event-bus.service';
-import { BrowserInfoService } from './services/browser-info-service/browser-info.service';
-import { Constants } from './services/constants-service/constants.service';
+import { TitleService } from '../core/services/title-service/title.service';
+import { EventBusService } from '../core/services/message-bus-service/event-bus.service';
+import { BrowserInfoService } from '../core/services/browser-info-service/browser-info.service';
+import { Constants } from '../core/services/constants-service/constants.service';
 
 declare const $: any;
 
