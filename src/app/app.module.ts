@@ -4,6 +4,7 @@ import { FormsModule } from '@angular/forms';
 import { HttpModule, JsonpModule } from '@angular/http';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+
 import { DataListComponent } from '../core/components/data-list/data-list.component';
 import { CoreModule } from '../core/core.module';
 import { ApiService } from '../core/services/api-service/api.service';
@@ -27,6 +28,8 @@ import { UsersControllerComponent } from './routes/users-controller/users-contro
 import { CriticalErrorService } from './services/critical-error-service/critical-error.service';
 import { SimpleErrorService } from './services/simple-error/simple-error.service';
 
+import { DataTable, DataTableModule, DialogModule, SharedModule, TabViewModule } from 'primeng/primeng';
+
 @NgModule({
 	imports     : [
 		CommonModule,
@@ -36,7 +39,11 @@ import { SimpleErrorService } from './services/simple-error/simple-error.service
 		JsonpModule,
 		BrowserAnimationsModule,
 		AppRoutingModule,
-		CoreModule
+		CoreModule,
+		SharedModule,
+		DialogModule,
+		TabViewModule,
+		DataTableModule
 	],
 	declarations: [
 		AppComponent,
@@ -49,7 +56,7 @@ import { SimpleErrorService } from './services/simple-error/simple-error.service
 		HomeViewComponent,
 		SiteSettingsComponent,
 		MenuSubItemComponent,
-		
+
 		// core
 		DataListComponent,
 	],

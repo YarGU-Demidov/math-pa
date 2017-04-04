@@ -13,6 +13,8 @@ export class GlobalContentComponent implements OnInit, AfterViewInit {
 
 	@ViewChild('contentArea')
 	private contentArea: ElementRef;
+	@ViewChild('mainContentArea')
+	private mainContentArea: ElementRef;
 
 	private eventBus: EventBusService;
 	public browserInfo: BrowserInfo;
@@ -29,7 +31,15 @@ export class GlobalContentComponent implements OnInit, AfterViewInit {
 	}
 
 	public ngOnInit(): void {
-
+		const self = this;
+		setTimeout(() => {
+			$(self.mainContentArea.nativeElement).mCustomScrollbar({
+				axis         : 'y',
+				theme        : 'minimal-dark',
+				setTop       : 0,
+				scrollInertia: 200
+			});
+		});
 	}
 
 	public ngAfterViewInit(): void {

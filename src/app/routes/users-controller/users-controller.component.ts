@@ -1,56 +1,54 @@
-import { Component, Injectable, OnInit } from '@angular/core';
-import { DataListProvider } from '../../../core/interfasces/data-list-provider';
-import { ApiService } from '../../../core/services/api-service/api.service';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { Dialog, LazyLoadEvent } from 'primeng/primeng';
 import { LoadingIndicatorService } from '../../../core/services/loading-indicator/loading-indicator.service';
 import { UserInfo } from '../../../core/view-models/user-info';
-
-@Injectable()
-export class UsersProvider implements DataListProvider<UserInfo> {
-	private api: ApiService;
-	
-	public constructor(api: ApiService) {
-		this.api = api;
-		
-	}
-	
-	public getCount(): Promise<number> {
-		return this.api.usersInfo().getUsersCount();
-	}
-	
-	public getItems(offset: number, count: number): Promise<UserInfo> {
-		return this.api.usersInfo().getUsers(offset, count).then((info) => {
-			return new Promise((resolve, reject) => {
-				setTimeout(() => {
-					resolve(info);
-				}, 3000);
-			});
-		});
-	}
-}
+import { UsersProvider } from './users-provider';
+import { UsersProviderWithLoader } from './users-provider-with-loader';
 
 @Component({
 	selector   : 'users-controller',
 	templateUrl: 'users-controller.component.html',
 	styleUrls  : ['users-controller.component.sass'],
 	providers  : [
-		UsersProvider
+		UsersProviderWithLoader
 	]
 })
 export class UsersControllerComponent implements OnInit {
-	
-	public users: any;
-	public data: UserInfo[] = [];
-	public itemsPerPageCount: number = 4;
-	
+
+	public users: UserInfo[] = [];
+	public usersCount: number = 0;
+
+	public itemsPerPageCount: number = 50;
+	public createAreaShowed = false;
+
+	@ViewChild('createDialog')
+	private createDialog: Dialog;
+
 	private indicator: LoadingIndicatorService;
 	public usersProvider: UsersProvider;
-	
-	public constructor(usersProvider: UsersProvider, indicator: LoadingIndicatorService) {
+
+	public constructor(usersProvider: UsersProviderWithLoader, indicator: LoadingIndicatorService) {
 		this.usersProvider = usersProvider;
 		this.indicator = indicator;
 	}
-	
+
 	public ngOnInit(): void {
-	
+		this.usersProvider.getCount().then((count) => {
+			this.usersCount = count;
+		});
+	}
+
+	public onCreateUser() {
+		this.createAreaShowed = true;
+	}
+
+	public handleChange($event: { originalEvent: MouseEvent, index: number }): void {
+		this.createDialog.center();
+	}
+
+	public loadUsersLazy($event: LazyLoadEvent): void {
+		this.usersProvider.getItems($event.first, $event.rows).then((users: UserInfo[]) => {
+			this.users = users;
+		});
 	}
 }

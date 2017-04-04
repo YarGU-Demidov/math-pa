@@ -1,12 +1,16 @@
 {
 	"extends": "../tsconfig.json",
-	"compilerOptions" : {
-		"outDir"                 : "../out-tsc/app",
-		"module"                 : "es2015",
-		"baseUrl"                : "",
-		"types"                  : []
+	"compilerOptions": {
+		"outDir": "../out-tsc/app",
+		"module": "es2015",
+		"baseUrl": "",
+		"types": [
+			"jquery",
+			"jquery-mousewheel",
+			"mCustomScrollbar"
+		]
 	},
-	"exclude"         : [
+	"exclude": [
 		"test.ts",
 		"**/*.spec.ts"
 	]

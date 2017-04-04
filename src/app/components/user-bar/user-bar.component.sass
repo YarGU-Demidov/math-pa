@@ -7,8 +7,9 @@
 	top: 0
 	width: 100%
 	background-color: #e8e8e8
-	height: 30px
-	line-height: 30px
+	box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.5)
+	height: $user-barHeight
+	line-height: $user-barHeight
 	z-index: 15
 	#user-bar__login
 		width: auto
@@ -30,7 +31,7 @@
 		position: absolute
 		width: 300px
 		background: #ccc
-		top: 30px
+		top: $user-barHeight
 		right: 0
 		&.hidden
 			display: none

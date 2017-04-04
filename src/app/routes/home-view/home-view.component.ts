@@ -1,6 +1,8 @@
-import { Component, OnInit, AfterViewInit } from '@angular/core';
+import { Component, OnInit, AfterViewInit, ViewChild, ElementRef } from '@angular/core';
 import { ApiService } from '../../../core/services/api-service/api.service';
 import { UserInfo } from '../../../core/view-models/user-info';
+import { BrowserInfoService } from '../../../core/services/browser-info-service/browser-info.service';
+import { BrowserInfo } from '../../../core/services/browser-info-service/browser-info';
 
 @Component({
 	selector   : 'home-view',
@@ -8,14 +10,20 @@ import { UserInfo } from '../../../core/view-models/user-info';
 	styleUrls  : ['home-view.component.sass']
 })
 export class HomeViewComponent implements OnInit, AfterViewInit {
+	@ViewChild('homeView')
+	public homeView: ElementRef;
+
 	private api: ApiService;
-	
-	private user: UserInfo;
+
 	public name: string;
-	
-	public constructor(api: ApiService) {
+
+	private user: UserInfo;
+	private browserInfo: BrowserInfo;
+
+	public constructor(api: ApiService, browserInfo: BrowserInfoService) {
 		this.api = api;
-		
+		this.browserInfo = browserInfo.getBrowserInfo();
+
 		api.currentUserInfo().then((user: UserInfo) => {
 			if (!user.name && !user.surname && !user.middleName) {
 				this.name = user.nick;
@@ -27,13 +35,13 @@ export class HomeViewComponent implements OnInit, AfterViewInit {
 			}
 		});
 	}
-	
+
 	public ngOnInit(): void {
-	
+		$(this.homeView.nativeElement).height(this.browserInfo.getHeight() - 30);
 	}
-	
+
 	public ngAfterViewInit(): void {
-	
+
 	}
-	
+
 }

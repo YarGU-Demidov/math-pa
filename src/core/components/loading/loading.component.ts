@@ -9,13 +9,13 @@ import { animate, state, style, transition, trigger } from '@angular/animations'
 	styleUrls  : ['loading.component.sass'],
 	animations : [
 		trigger('visibility', [
-			state('false', style({
-				opacity: 0,
-				display: 'none'
-			})),
-			state('true', style({
+			state('shown', style({
 				opacity: 1,
 				display: 'block'
+			})),
+			state('hidden', style({
+				opacity: 0,
+				display: 'none'
 			})),
 			transition('* => *', animate('250ms ease-in'))
 		])
@@ -24,29 +24,29 @@ import { animate, state, style, transition, trigger } from '@angular/animations'
 export class LoadingComponent implements OnInit {
 	private eventBus: EventBusService;
 	private constants: Constants;
-	
-	public visible: boolean = false;
-	
+
+	public visible: string = 'hidden';
+
 	public constructor(eventBus: EventBusService, constants: Constants) {
 		this.eventBus = eventBus;
 		this.constants = constants;
-		
+
 		eventBus.createEventIfNotExists(constants.eventBusEvents.INDICATOR.SHOW);
 		eventBus.createEventIfNotExists(constants.eventBusEvents.INDICATOR.HIDE);
-		
+
 		eventBus.subscribe(constants.eventBusEvents.INDICATOR.SHOW, this.onShowHandler, this);
 		eventBus.subscribe(constants.eventBusEvents.INDICATOR.HIDE, this.onHideHandler, this);
 	}
-	
+
 	private onShowHandler(self: LoadingComponent): void {
-		self.visible = true;
+		self.visible = 'shown';
 	}
-	
+
 	private onHideHandler(self: LoadingComponent): void {
-		self.visible = false;
+		self.visible = 'hidden';
 	}
-	
+
 	public ngOnInit() {
-	
+
 	}
 }

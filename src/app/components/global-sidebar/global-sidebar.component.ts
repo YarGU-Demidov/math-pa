@@ -7,8 +7,6 @@ import { BrowserInfo } from '../../../core/services/browser-info-service/browser
 import { Constants } from '../../../core/services/constants-service/constants.service';
 import { CriticalErrorService } from '../../services/critical-error-service/critical-error.service';
 
-declare const $: any;
-
 @Component({
 	selector   : 'global-sidebar',
 	templateUrl: 'global-sidebar.component.html',
@@ -91,7 +89,7 @@ export class GlobalSideBarComponent implements OnInit, AfterViewInit {
 			was = 'normal';
 		this.eventBus.raise(this.constants.eventBusEvents.SIDEBAR_TOGGLE, this, [now, was]);
 	}
-	
+
 	private showSidebar(): void {
 		const now = 'normal',
 			was = 'collapsed';

@@ -38,6 +38,8 @@
 		"@angular/compiler-cli": "^4.0.0",
 		"@types/node": "~6.0.60",
 		"@types/es6-promise": "^0.0.32",
+		"@types/jquery": "^2.0.41",
+		"@types/mcustomscrollbar": "^2.8.30",
 		"autoprefixer": "^6.5.3",
 		"codelyzer": "~2.0.0",
 		"css-loader": "^0.26.1",

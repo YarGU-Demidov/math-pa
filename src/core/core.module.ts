@@ -11,6 +11,7 @@ import { HeaderDirective } from './directives/header.directive';
 import { TemplateWrapperDirective } from './directives/template-wrapper.directive';
 import { TemplateDirective } from './directives/template.directive';
 import { LoadingStatusComponent } from './components/loading-status/loading-status.component';
+import { FloatAreaComponent } from './components/float-area/float-area.component';
 
 @NgModule({
 	imports     : [
@@ -25,7 +26,8 @@ import { LoadingStatusComponent } from './components/loading-status/loading-stat
 		LoadingComponent,
 		ErrorsHandlerComponent,
 		LoadingStatusComponent,
-		
+		FloatAreaComponent,
+
 		// directives
 		TemplateDirective,
 		TemplateWrapperDirective,
@@ -38,7 +40,8 @@ import { LoadingStatusComponent } from './components/loading-status/loading-stat
 		LoadingComponent,
 		ErrorsHandlerComponent,
 		LoadingStatusComponent,
-		
+		FloatAreaComponent,
+
 		// directives
 		TemplateDirective,
 		TemplateWrapperDirective,

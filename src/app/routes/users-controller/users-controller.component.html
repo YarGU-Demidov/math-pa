@@ -1,16 +1,43 @@
-<core-data-list [perPage]="itemsPerPageCount" [dataProvider]="usersProvider">
-	<header core-header>
-		data-list header
-	</header>
-	<footer core-footer>
-		data-list footer
-	</footer>
-	<div core-empty class="empty-list">
-		Сорямба, данных нет.
-	</div>
-	<ng-template let-user core-template>
-		<div class="user-item">
-			{{ user.nick }}
+<p-dialog #createDialog [(visible)]="createAreaShowed"
+          [modal]="true"
+          [responsive]="true"
+          [resizable]="false"
+          [draggable]="false"
+          appendTo="body"
+          styleClass="UserCreate__dialog">
+	<p-header class="UserCreate__header">
+		<div class="UserCreate__header-title">
+			Создание пользователя
 		</div>
-	</ng-template>
-</core-data-list>
+	</p-header>
+	<div class="UserCreate__Body">
+		<p-tabView (onChange)="handleChange($event)">
+			<p-tabPanel header="Персона">
+				<div class="">
+
+				</div>
+			</p-tabPanel>
+			<p-tabPanel header="Пользователь">
+				Content 2
+			</p-tabPanel>
+		</p-tabView>
+	</div>
+</p-dialog>
+
+<div class="user-create-btn" (click)="onCreateUser()">
+	create user
+</div>
+
+<p-dataTable
+	[value]="users"
+	[lazy]="true"
+	[paginator]="true"
+	[rows]="itemsPerPageCount"
+	[totalRecords]="usersCount"
+	emptyMessage="Сорямба, пользователей нет."
+	(onLazyLoad)="loadUsersLazy($event)">
+
+	<p-column field="name" header="Имя"></p-column>
+	<p-column field="surname" header="Фамилия"></p-column>
+	<p-column field="middleName" header="Отчество"></p-column>
+</p-dataTable>
