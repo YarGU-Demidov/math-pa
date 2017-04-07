@@ -37,7 +37,7 @@ export class HomeViewComponent implements OnInit, AfterViewInit {
 	}
 
 	public ngOnInit(): void {
-		$(this.homeView.nativeElement).height(this.browserInfo.getHeight() - 30);
+		$(this.homeView.nativeElement).height(this.browserInfo.getHeight() - 31);
 	}
 
 	public ngAfterViewInit(): void {

@@ -1,4 +1,6 @@
-<p-dialog #createDialog [(visible)]="createAreaShowed"
+<p-dialog #createDialog
+          [(visible)]="createAreaShowed"
+          showEffect="fade"
           [modal]="true"
           [responsive]="true"
           [resizable]="false"
@@ -6,16 +8,12 @@
           appendTo="body"
           styleClass="UserCreate__dialog">
 	<p-header class="UserCreate__header">
-		<div class="UserCreate__header-title">
-			Создание пользователя
-		</div>
+		Создание пользователя
 	</p-header>
 	<div class="UserCreate__Body">
 		<p-tabView (onChange)="handleChange($event)">
 			<p-tabPanel header="Персона">
-				<div class="">
-
-				</div>
+				Content 1
 			</p-tabPanel>
 			<p-tabPanel header="Пользователь">
 				Content 2
@@ -28,16 +26,29 @@
 	create user
 </div>
 
+
+<div class="ui-widget-header" style="padding:4px 10px;border-bottom: 0 none">
+	<i class="fa fa-search" style="margin:4px 4px 0 0"></i>
+	<input #gb type="text" pInputText size="50" placeholder="Global Filter">
+</div>
 <p-dataTable
+	class="users-table"
+	[globalFilter]="gb"
+	[filterDelay]="500"
 	[value]="users"
 	[lazy]="true"
 	[paginator]="true"
 	[rows]="itemsPerPageCount"
+	[rowsPerPageOptions]="[10,20,50,100,500]"
 	[totalRecords]="usersCount"
-	emptyMessage="Сорямба, пользователей нет."
+	[responsive]="true"
+	[emptyMessage]="'Пользователей нет.'"
 	(onLazyLoad)="loadUsersLazy($event)">
-
-	<p-column field="name" header="Имя"></p-column>
-	<p-column field="surname" header="Фамилия"></p-column>
-	<p-column field="middleName" header="Отчество"></p-column>
+	
+	<p-column header="ФИО">
+		<ng-template let-user="rowData" pTemplate="body">
+			{{ user.surname }} {{ user.name }} {{ user.middleName }}
+		</ng-template>
+	</p-column>
+	<p-column field="group.name" header="Группа" [sortField]="'user.group'" [sortable]="true"></p-column>
 </p-dataTable>

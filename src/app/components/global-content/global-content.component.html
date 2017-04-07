@@ -1,9 +1,11 @@
 <div id="right-side" #contentArea [class]="browserInfo.isMobile || browserInfo.getWidth() < constants.minWindowWidthForSidebarOpenedDefault ? 'collapsed' : 'normal'">
 	<div id="content">
 		<user-bar *ngIf="!browserInfo.isMobile"></user-bar>
-		<div id="mainContentArea__wrapper">
+		<div id="mainContentArea__wrapper" [ngClass]="(browserInfo.isMobile) ? 'mobile': ''">
 			<div id="mainContentArea" #mainContentArea>
-				<router-outlet></router-outlet>
+				<div class="scrollable-content">
+					<router-outlet></router-outlet>
+				</div>
 			</div>
 		</div>
 	</div>
