@@ -31,15 +31,15 @@ export class GlobalContentComponent implements OnInit, AfterViewInit {
 	}
 	
 	public ngOnInit(): void {
-		const self = this;
-		setTimeout(() => {
-			$(self.mainContentArea.nativeElement).mCustomScrollbar({
-				axis         : 'yx',
-				theme        : 'minimal-dark',
-				setTop       : 0,
-				scrollInertia: 200
-			});
-		});
+		// const self = this;
+		// setTimeout(() => {
+		// 	$(self.mainContentArea.nativeElement).mCustomScrollbar({
+		// 		axis         : 'yx',
+		// 		theme        : 'minimal-dark',
+		// 		setTop       : 0,
+		// 		scrollInertia: 200
+		// 	});
+		// });
 	}
 	
 	public ngAfterViewInit(): void {
@@ -52,5 +52,4 @@ export class GlobalContentComponent implements OnInit, AfterViewInit {
 		this.contentArea.nativeElement.classList.remove(previousState);
 		this.contentArea.nativeElement.classList.add(currentState);
 	}
-	
 }

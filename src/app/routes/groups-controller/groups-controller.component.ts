@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { TitleService } from '../../../core/services/title-service/title.service';
 
 @Component({
 	selector   : 'groups-controller',
@@ -6,8 +7,10 @@ import { Component, OnInit } from '@angular/core';
 	styleUrls  : ['groups-controller.component.sass']
 })
 export class GroupsControllerComponent implements OnInit {
+	private pageTitle: string = 'Управление группами';
 	
-	public constructor() {
+	public constructor(titleService: TitleService) {
+		titleService.setTitle(this.pageTitle);
 	}
 	
 	public ngOnInit(): void {

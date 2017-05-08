@@ -1,0 +1,36 @@
+<div class="ui-widget-header" style="padding:4px 10px; border-bottom: 0 none; margin: 10px 20px 0">
+	<i class="fa fa-search" style="margin:4px 4px 0 0"></i>
+	<input #gb type="text" pInputText size="50" placeholder="Global Filter">
+</div>
+
+<p-dataTable
+	class="users-table"
+	[globalFilter]="gb"
+	[filterDelay]="500"
+	[value]="persons"
+	[lazy]="true"
+	[paginator]="true"
+	[rows]="itemsPerPageCount"
+	[rowsPerPageOptions]="[10,20,50,100,500]"
+	[totalRecords]="usersCount"
+	[responsive]="true"
+	[emptyMessage]="'Персон нет.'"
+	(onLazyLoad)="loadUsersLazy($event)">
+	
+	<p-column header="Фамилия" field="surname"></p-column>
+	<p-column header="Имя" field="name"></p-column>
+	<p-column header="Отчество" field="middleName"></p-column>
+	<p-column header="Дата создания">
+		<ng-template let-person="rowData" pTemplate="body">
+			{{ createDateString(person) }}
+		</ng-template>
+	</p-column>
+	
+	<ng-container *ngIf="isSelectable">
+		<p-column header="Выбрать пользователя">
+			<ng-template let-person="rowData" pTemplate="body">
+				<button pButton label="Select"></button>
+			</ng-template>
+		</p-column>
+	</ng-container>
+</p-dataTable>

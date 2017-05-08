@@ -2,20 +2,7 @@ import { Response } from '@angular/http';
 import { UserInfo } from '../../../view-models/user-info';
 import { DataProtocol } from '../data-protocol';
 import { MethodArgs } from '../method-args';
-import { SortDirection } from '../../../enums/sort-direction';
-
-export interface UsersSortable {
-	group: SortDirection;
-}
-
-export interface FiltersData {
-	globalFilter: string;
-}
-
-export interface FiltersAndSortData {
-	sort: UsersSortable;
-	filter: FiltersData;
-}
+import { FiltersAndSortData } from '../../../interfasces/entities-interfaces';
 
 export class UserController extends DataProtocol {
 	protected controllerName: string = 'UsersInfo';
@@ -29,7 +16,7 @@ export class UserController extends DataProtocol {
 	}
 	
 	public getUsersCount(): Promise<number> {
-		return this.get('GetUsersCount').then((response: Response) => {
+		return this.get('GetCount').then((response: Response) => {
 			const responseData = (<{ result: string, error: string, data: number }> response.json());
 			
 			if (responseData.result !== 'success') {

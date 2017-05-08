@@ -5,7 +5,6 @@ import { HttpModule, JsonpModule } from '@angular/http';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
-import { DataListComponent } from '../core/components/data-list/data-list.component';
 import { CoreModule } from '../core/core.module';
 import { ApiService } from '../core/services/api-service/api.service';
 import { BrowserInfoService } from '../core/services/browser-info-service/browser-info.service';
@@ -13,6 +12,8 @@ import { Constants } from '../core/services/constants-service/constants.service'
 import { LoadingIndicatorService } from '../core/services/loading-indicator/loading-indicator.service';
 import { EventBusService } from '../core/services/message-bus-service/event-bus.service';
 import { TitleService } from '../core/services/title-service/title.service';
+import { CriticalErrorService } from './services/critical-error-service/critical-error.service';
+import { SimpleErrorService } from './services/simple-error/simple-error.service';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -25,10 +26,24 @@ import { GroupsControllerComponent } from './routes/groups-controller/groups-con
 import { HomeViewComponent } from './routes/home-view/home-view.component';
 import { SiteSettingsComponent } from './routes/site-settings/site-settings.component';
 import { UsersControllerComponent } from './routes/users-controller/users-controller.component';
-import { CriticalErrorService } from './services/critical-error-service/critical-error.service';
-import { SimpleErrorService } from './services/simple-error/simple-error.service';
+import { CreateUserComponent } from './routes-components/create-user-component/create-user.component';
+import { ListUsersComponent } from './routes-components/list-users-component/list-users.component';
+import { CreatePersonComponent } from './routes-components/create-person-component/create-person.component';
+import { ListPersonsComponent } from './routes-components/list-persons-component/list-persons.component';
 
-import { DataTable, DataTableModule, DialogModule, SharedModule, TabViewModule } from 'primeng/primeng';
+import {
+	AccordionModule,
+	ButtonModule,
+	CalendarModule,
+	DataTableModule,
+	DialogModule,
+	FileUploadModule,
+	InputMaskModule,
+	InputTextModule,
+	SharedModule,
+	TabViewModule
+} from 'primeng/primeng';
+import { PersonsControllerComponent } from './routes/persons-controller/persons-controller.component';
 
 @NgModule({
 	imports     : [
@@ -43,7 +58,13 @@ import { DataTable, DataTableModule, DialogModule, SharedModule, TabViewModule }
 		SharedModule,
 		DialogModule,
 		TabViewModule,
-		DataTableModule
+		DataTableModule,
+		ButtonModule,
+		AccordionModule,
+		InputTextModule,
+		InputMaskModule,
+		CalendarModule,
+		FileUploadModule
 	],
 	declarations: [
 		AppComponent,
@@ -51,14 +72,19 @@ import { DataTable, DataTableModule, DialogModule, SharedModule, TabViewModule }
 		GlobalContentComponent,
 		MenuItemComponent,
 		UserBarComponent,
+		MenuSubItemComponent,
+		
+		// routes
 		UsersControllerComponent,
+		PersonsControllerComponent,
 		GroupsControllerComponent,
 		HomeViewComponent,
 		SiteSettingsComponent,
-		MenuSubItemComponent,
-
-		// core
-		DataListComponent,
+		
+		CreateUserComponent,
+		ListUsersComponent,
+		CreatePersonComponent,
+		ListPersonsComponent
 	],
 	providers   : [
 		// services

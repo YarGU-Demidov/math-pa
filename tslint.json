@@ -18,14 +18,14 @@
 		],
 		"import-spacing"                : true,
 		"indent"                        : [
-			true,
+			false,
 			"tabs"
 		],
 		"interface-over-type-literal"   : true,
 		"label-position"                : true,
 		"max-line-length"               : [
 			true,
-			140
+			150
 		],
 		"member-access"                 : false,
 		"member-ordering"               : [

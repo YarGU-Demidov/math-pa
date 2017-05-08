@@ -12,6 +12,7 @@ import { TemplateWrapperDirective } from './directives/template-wrapper.directiv
 import { TemplateDirective } from './directives/template.directive';
 import { LoadingStatusComponent } from './components/loading-status/loading-status.component';
 import { FloatAreaComponent } from './components/float-area/float-area.component';
+import { DataListComponent } from './components/data-list/data-list.component';
 
 @NgModule({
 	imports     : [
@@ -27,6 +28,7 @@ import { FloatAreaComponent } from './components/float-area/float-area.component
 		ErrorsHandlerComponent,
 		LoadingStatusComponent,
 		FloatAreaComponent,
+		DataListComponent,
 
 		// directives
 		TemplateDirective,

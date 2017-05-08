@@ -54,8 +54,8 @@ export class GlobalSideBarComponent implements OnInit, AfterViewInit {
 		this.api = api;
 
 		const self = this;
-
-		api.menuItemsData().getAll().then((data: Array<MenuItemData>) => {
+		
+		api.menuItemsData.getAll().then((data: Array<MenuItemData>) => {
 			self.menuItems = data;
 		}, (error) => {
 			criticalErrorService.raiseError(error.message, self);

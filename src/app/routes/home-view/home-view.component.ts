@@ -3,6 +3,7 @@ import { ApiService } from '../../../core/services/api-service/api.service';
 import { UserInfo } from '../../../core/view-models/user-info';
 import { BrowserInfoService } from '../../../core/services/browser-info-service/browser-info.service';
 import { BrowserInfo } from '../../../core/services/browser-info-service/browser-info';
+import { TitleService } from '../../../core/services/title-service/title.service';
 
 @Component({
 	selector   : 'home-view',
@@ -10,6 +11,9 @@ import { BrowserInfo } from '../../../core/services/browser-info-service/browser
 	styleUrls  : ['home-view.component.sass']
 })
 export class HomeViewComponent implements OnInit, AfterViewInit {
+	
+	private pageTitle: string = 'Пользовательская Панель';
+	
 	@ViewChild('homeView')
 	public homeView: ElementRef;
 
@@ -19,12 +23,12 @@ export class HomeViewComponent implements OnInit, AfterViewInit {
 
 	private user: UserInfo;
 	private browserInfo: BrowserInfo;
-
-	public constructor(api: ApiService, browserInfo: BrowserInfoService) {
+	
+	public constructor(api: ApiService, browserInfo: BrowserInfoService, titleService: TitleService) {
 		this.api = api;
 		this.browserInfo = browserInfo.getBrowserInfo();
-
-		api.currentUserInfo().then((user: UserInfo) => {
+		
+		api.currentUserInfo.then((user: UserInfo) => {
 			if (!user.name && !user.surname && !user.middleName) {
 				this.name = user.nick;
 			} else {
@@ -34,6 +38,8 @@ export class HomeViewComponent implements OnInit, AfterViewInit {
 				this.name += user.middleName ? `${user.middleName}` : ``;
 			}
 		});
+		
+		titleService.setTitle(this.pageTitle);
 	}
 
 	public ngOnInit(): void {

@@ -1,0 +1,89 @@
+<div style="padding: 10px;word-wrap: break-word;">
+	{{ diagnostic() }}
+</div>
+<div class="person-creation-form">
+	<form #personForm="ngForm">
+		<div>
+			<label for="person-name">Name</label>
+			<input
+				required
+				pInputText
+				[(ngModel)]="currentPerson.name"
+				type="text"
+				placeholder="Person name"
+				name="name"
+				id="person-name"
+				#personName="ngModel">
+		</div>
+		<div>
+			<label for="person-surname">Surname</label>
+			<input
+				required
+				pInputText
+				[(ngModel)]="currentPerson.surname"
+				type="text"
+				placeholder="Person surname"
+				name="surname"
+				id="person-surname"
+				#personSurname="ngModel">
+		</div>
+		<div>
+			<label for="person-middlename">Middlename</label>
+			<input
+				pInputText
+				[(ngModel)]="currentPerson.middleName"
+				type="text"
+				placeholder="Person middlename"
+				name="middlename"
+				id="person-middlename"
+				#personMiddlename="ngModel">
+		</div>
+		<div>
+			<label for="person-email">Email</label>
+			<input
+				pInputText
+				type="email"
+				placeholder="Person email"
+				name="email"
+				id="person-email"
+				[(ngModel)]="currentPerson.email"
+				#personEmail="ngModel">
+		</div>
+		<div>
+			<label for="person-phone">Phone</label>
+			<p-inputMask
+				required
+				[(ngModel)]="currentPerson.phone"
+				placeholder="Person phone"
+				mask="+7 (999) 999-99-99"
+				name="phone"
+				id="person-phone"
+				#personPhone="ngModel"></p-inputMask>
+		</div>
+		<div>
+			<label for="person-add-phone">Additional Phone</label>
+			<p-inputMask
+				[(ngModel)]="currentPerson.additionalPhone"
+				placeholder="Person additional phone"
+				mask="+7 (999) 999-99-99"
+				name="add-phone"
+				id="person-add-phone"
+				#personAdditionalPhone="ngModel"></p-inputMask>
+		</div>
+		<div>
+			<label for="person-add-birthday">Birthday</label>
+			<p-calendar
+				required
+				[(ngModel)]="currentPerson.birthday"
+				[yearNavigator]="true"
+				[monthNavigator]="true"
+				[yearRange]="yearRange"
+				placeholder="Person Birthday"
+				name="person-add-birthday"
+				id="person-add-birthday"
+				dateFormat="dd.mm.yy"
+				[locale]="calendarLanguage"
+				#personBirthday="ngModel"></p-calendar>
+		</div>
+	</form>
+</div>

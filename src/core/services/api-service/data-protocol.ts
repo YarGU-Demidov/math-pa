@@ -9,7 +9,7 @@ export abstract class DataProtocol {
 	
 	public constructor(apiUrl: string, http: Http) {
 		this.apiUrl = apiUrl;
-		this.http = http;
+		this.http   = http;
 	}
 	
 	private getUrlPartial(): string {
@@ -21,7 +21,7 @@ export abstract class DataProtocol {
 		
 		let url = `${this.getUrlPartial()}/${methodName}`;
 		
-		if (argsStr) {
+		if ( argsStr ) {
 			url += `?${argsStr}`;
 		}
 		
@@ -29,11 +29,11 @@ export abstract class DataProtocol {
 	}
 	
 	protected get(methodName: string, args: MethodArgs = new MethodArgs(), postRequire: boolean = false, data: Object = null): Promise<any> {
-		if (postRequire) {
-			return this.http.post(this.buildUrl(methodName, args), data, { withCredentials: true }).toPromise();
-		}
+		const builtUrl = this.buildUrl(methodName, args);
 		
-		return this.http.get(this.buildUrl(methodName, args), { withCredentials: true }).toPromise();
+		return postRequire
+			? this.http.post(builtUrl, data, { withCredentials: true }).toPromise()
+			: this.http.get(builtUrl, { withCredentials: true }).toPromise();
 	}
 	
 	protected set(methodName: string, args: MethodArgs): Promise<any> {

@@ -66,8 +66,8 @@ export class UserBarComponent implements OnInit, AfterViewInit {
 		
 		const self = this;
 		this.user = new UserInfo();
-
-		api.currentUserInfo().then((user: UserInfo) => {
+		
+		api.currentUserInfo.then((user: UserInfo) => {
 			self.setUserData(user);
 		});
 
@@ -116,8 +116,8 @@ export class UserBarComponent implements OnInit, AfterViewInit {
 
 	public logout(): void {
 		const self = this;
-
-		this.api.auth().logout().then((result: LogoutResult) => {
+		
+		this.api.auth.logout().then((result: LogoutResult) => {
 			if (result.logoutStatus === LogoutStatus.Success) {
 				location.href = '/';
 			} else {
