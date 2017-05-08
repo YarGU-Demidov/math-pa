@@ -1,7 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { Dialog } from 'primeng/primeng';
-import { Person } from '../../../core/entities/person';
-import { UsersProviderWithLoader } from '../../providers/users-provider-with-loader';
+import { Person } from 'core/core.module';
+import { UsersProviderWithLoader } from 'app/providers/users-provider-with-loader';
 
 @Component({
 	selector   : 'create-user',

@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
-import { HandlersStorage } from './handler-storage';
-import { EventsStorage } from './events-storage-interface';
+import { EventsStorage } from 'core/services/message-bus-service/events-storage-interface';
+import { HandlersStorage } from 'core/services/message-bus-service/handler-storage';
 
 @Injectable()
 export class EventBusService {

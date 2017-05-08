@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { TitleService } from '../../../core/services/title-service/title.service';
-import { UsersProviderWithLoader } from '../../providers/users-provider-with-loader';
+import { TitleService } from 'core/core.module';
+import { UsersProviderWithLoader } from 'app/providers/users-provider-with-loader';
 
 @Component({
 	selector   : 'users-controller',

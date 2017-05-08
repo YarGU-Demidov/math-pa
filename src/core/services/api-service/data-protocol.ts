@@ -1,5 +1,5 @@
 import { Http } from '@angular/http';
-import { MethodArgs } from './method-args';
+import { MethodArgs } from 'core/services/api-service/method-args';
 
 export abstract class DataProtocol {
 	protected abstract controllerName: string;

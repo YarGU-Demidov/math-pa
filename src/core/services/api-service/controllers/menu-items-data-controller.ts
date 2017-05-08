@@ -1,6 +1,6 @@
-import { DataProtocol } from '../data-protocol';
-import { MenuItemData } from '../../../view-models/menu-item-data';
 import { Response } from '@angular/http';
+import { DataProtocol } from 'core/services/api-service/data-protocol';
+import { MenuItemData } from 'core/view-models/menu-item-data';
 
 export class MenuItemsDataController extends DataProtocol {
 	protected controllerName: string = 'MenuItems';

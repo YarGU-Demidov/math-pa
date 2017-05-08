@@ -1,4 +1,4 @@
-import { GroupInfo } from './group-info';
+import { GroupInfo } from 'core/view-models/group-info';
 
 export class UserInfo {
 	public id: string = '';

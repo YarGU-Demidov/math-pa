@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { TitleService } from '../../../core/services/title-service/title.service';
+import { TitleService } from 'core/core.module';
 
 @Component({
 	selector   : 'groups-controller',

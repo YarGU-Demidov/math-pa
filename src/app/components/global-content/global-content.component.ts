@@ -1,8 +1,5 @@
 import { AfterViewInit, Component, ElementRef, OnInit, ViewChild } from '@angular/core';
-import { BrowserInfo } from '../../../core/services/browser-info-service/browser-info';
-import { BrowserInfoService } from '../../../core/services/browser-info-service/browser-info.service';
-import { Constants } from '../../../core/services/constants-service/constants.service';
-import { EventBusService } from '../../../core/services/message-bus-service/event-bus.service';
+import { BrowserInfo, EventBusService, BrowserInfoService, Constants } from 'core/core.module';
 
 @Component({
 	selector   : 'global-content',
@@ -21,8 +18,8 @@ export class GlobalContentComponent implements OnInit, AfterViewInit {
 	public constants: Constants;
 	
 	constructor(eventBus: EventBusService, browserInfo: BrowserInfoService, constants: Constants) {
-		this.eventBus = eventBus;
-		this.constants = constants;
+		this.eventBus    = eventBus;
+		this.constants   = constants;
 		this.browserInfo = browserInfo.getBrowserInfo();
 		
 		eventBus.subscribe(this.constants.eventBusEvents.SIDEBAR_TOGGLE, (currentState: string, previousState: string) => {
@@ -43,7 +40,7 @@ export class GlobalContentComponent implements OnInit, AfterViewInit {
 	}
 	
 	public ngAfterViewInit(): void {
-		if (this.browserInfo.isMobile) {
+		if ( this.browserInfo.isMobile ) {
 			this.toggleArea('collapsed', 'normal');
 		}
 	}

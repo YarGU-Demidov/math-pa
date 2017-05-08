@@ -1,9 +1,6 @@
 import { Injectable } from '@angular/core';
+import { UserInfo, ApiService, LoadingIndicatorService, FiltersAndSortData } from 'core/core.module';
 import { UsersProvider } from './users-provider';
-import { LoadingIndicatorService } from '../../core/services/loading-indicator/loading-indicator.service';
-import { ApiService } from '../../core/services/api-service/api.service';
-import { FiltersAndSortData } from '../../core/interfasces/entities-interfaces';
-import { UserInfo } from '../../core/view-models/user-info';
 
 @Injectable()
 export class UsersProviderWithLoader extends UsersProvider {

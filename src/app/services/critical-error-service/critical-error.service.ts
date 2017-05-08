@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
-import { EventBusService } from '../../../core/services/message-bus-service/event-bus.service';
-import { Constants } from '../../../core/services/constants-service/constants.service';
+import { EventBusService, Constants } from 'core/core.module';
 
 @Injectable()
 export class CriticalErrorService {
@@ -8,7 +7,7 @@ export class CriticalErrorService {
 	private constants: Constants;
 	
 	public constructor(eventBus: EventBusService, constants: Constants) {
-		this.eventBus = eventBus;
+		this.eventBus  = eventBus;
 		this.constants = constants;
 	}
 	

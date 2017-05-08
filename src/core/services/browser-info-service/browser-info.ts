@@ -1,4 +1,4 @@
-import { OsType } from './os-type';
+import { OsType } from 'core/services/browser-info-service/os-type';
 
 // some code from: https://github.com/JDMcKinstry/navigator-extensions
 

@@ -1,8 +1,6 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { Router } from '@angular/router';
-import { MenuItemData } from '../../../core/view-models/menu-item-data';
-import { EventBusService } from '../../../core/services/message-bus-service/event-bus.service';
-import { Constants } from '../../../core/services/constants-service/constants.service';
+import { MenuItemData, EventBusService, Constants } from 'core/core.module';
 import { SimpleErrorService } from '../../services/simple-error/simple-error.service';
 
 @Component({
@@ -24,9 +22,9 @@ export class MenuSubItemComponent implements OnInit {
 	private errorsHandler: SimpleErrorService;
 	
 	public constructor(router: Router, eventBus: EventBusService, constants: Constants, errorsHandler: SimpleErrorService) {
-		this.router = router;
-		this.eventBus = eventBus;
-		this.constants = constants;
+		this.router        = router;
+		this.eventBus      = eventBus;
+		this.constants     = constants;
 		this.errorsHandler = errorsHandler;
 		
 	}
@@ -41,7 +39,7 @@ export class MenuSubItemComponent implements OnInit {
 	
 	public onItemClick() {
 		const self = this;
-	
+		
 		self.router.navigateByUrl(self.subItem.href).then((navigated) => {
 			self.navigated.emit(Boolean(navigated));
 		}, (error) => {

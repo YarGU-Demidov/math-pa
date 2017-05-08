@@ -1,9 +1,5 @@
 import { Component, OnInit, AfterViewInit, ViewChild, ElementRef } from '@angular/core';
-import { ApiService } from '../../../core/services/api-service/api.service';
-import { UserInfo } from '../../../core/view-models/user-info';
-import { BrowserInfoService } from '../../../core/services/browser-info-service/browser-info.service';
-import { BrowserInfo } from '../../../core/services/browser-info-service/browser-info';
-import { TitleService } from '../../../core/services/title-service/title.service';
+import { TitleService, BrowserInfo, BrowserInfoService, UserInfo, ApiService } from 'core/core.module';
 
 @Component({
 	selector   : 'home-view',

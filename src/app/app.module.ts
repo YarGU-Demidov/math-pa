@@ -5,13 +5,14 @@ import { HttpModule, JsonpModule } from '@angular/http';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
-import { CoreModule } from '../core/core.module';
-import { ApiService } from '../core/services/api-service/api.service';
-import { BrowserInfoService } from '../core/services/browser-info-service/browser-info.service';
-import { Constants } from '../core/services/constants-service/constants.service';
-import { LoadingIndicatorService } from '../core/services/loading-indicator/loading-indicator.service';
-import { EventBusService } from '../core/services/message-bus-service/event-bus.service';
-import { TitleService } from '../core/services/title-service/title.service';
+import { CoreModule } from 'core/core.module';
+import { ApiService } from 'core/core.module';
+import { BrowserInfoService } from 'core/core.module';
+import { Constants } from 'core/core.module';
+import { LoadingIndicatorService } from 'core/core.module';
+import { EventBusService } from 'core/core.module';
+import { TitleService } from 'core/core.module';
+
 import { CriticalErrorService } from './services/critical-error-service/critical-error.service';
 import { SimpleErrorService } from './services/simple-error/simple-error.service';
 

@@ -1,6 +1,5 @@
 import { Component, OnInit, Output } from '@angular/core';
-import { Person } from '../../../core/entities/person';
-import { Constants } from '../../../core/services/constants-service/constants.service';
+import { Person, Constants } from 'core/core.module';
 
 @Component({
 	selector   : 'create-person',

@@ -1,9 +1,6 @@
 import { Component, Input, ViewChild, ElementRef, OnInit, AfterViewInit, OnDestroy } from '@angular/core';
-import { EventBusService } from '../../../core/services/message-bus-service/event-bus.service';
-import { BrowserInfoService } from '../../../core/services/browser-info-service/browser-info.service';
-import { MenuItemData } from '../../../core/view-models/menu-item-data';
-import { Constants } from '../../../core/services/constants-service/constants.service';
 import { Router } from '@angular/router';
+import { EventBusService, BrowserInfoService, MenuItemData, Constants } from 'core/core.module';
 import { SimpleErrorService } from '../../services/simple-error/simple-error.service';
 
 @Component({
@@ -32,10 +29,10 @@ export class MenuItemComponent implements OnInit, AfterViewInit, OnDestroy {
 	private errorsHandler: SimpleErrorService;
 	
 	private static onItemClick(activeItem: MenuItemComponent, self: MenuItemComponent): void {
-		if (activeItem === self) {
-			if (!self.item.subItems || !self.item.subItems.length) {
+		if ( activeItem === self ) {
+			if ( !self.item.subItems || !self.item.subItems.length ) {
 				self.router.navigateByUrl(self.item.href).then((result) => {
-					if (result) {
+					if ( result ) {
 						self.close();
 					}
 				}, (error: Error) => {
@@ -50,20 +47,20 @@ export class MenuItemComponent implements OnInit, AfterViewInit, OnDestroy {
 	}
 	
 	private static onSomewhereClicked($event: MouseEvent, self: MenuItemComponent): void {
-		if (self.opened && !($event.toElement.classList.contains('sub-item') ||
+		if ( self.opened && !($event.toElement.classList.contains('sub-item') ||
 			$event.toElement.classList.contains('sub-sub-item') ||
 			$event.toElement.classList.contains('menu-content') ||
 			$event.toElement.classList.contains('menu-item') ||
-			$event.toElement.classList.contains('material-icons'))) {
+			$event.toElement.classList.contains('material-icons')) ) {
 			self.close();
 		}
 	}
 	
 	public constructor(eventBus: EventBusService, browserInfo: BrowserInfoService, constants: Constants, router: Router, errorsHandler: SimpleErrorService) {
-		this.browserInfo = browserInfo;
-		this.constants = constants;
-		this.eventBus = eventBus;
-		this.router = router;
+		this.browserInfo   = browserInfo;
+		this.constants     = constants;
+		this.eventBus      = eventBus;
+		this.router        = router;
 		this.errorsHandler = errorsHandler;
 		
 		eventBus.subscribe(constants.eventBusEvents.MENU_ITEM_CLICK, MenuItemComponent.onItemClick, this);
@@ -78,9 +75,9 @@ export class MenuItemComponent implements OnInit, AfterViewInit, OnDestroy {
 	
 	public ngAfterViewInit(): void {
 		
-		if (this.browserInfo.getBrowserInfo().isMobile) {
+		if ( this.browserInfo.getBrowserInfo().isMobile ) {
 			const elem: HTMLDivElement = this.extendedMenu.nativeElement;
-			if (!elem.classList.contains('mobile')) {
+			if ( !elem.classList.contains('mobile') ) {
 				elem.classList.add('mobile');
 			}
 		}
@@ -91,7 +88,7 @@ export class MenuItemComponent implements OnInit, AfterViewInit, OnDestroy {
 	}
 	
 	public clickHandler(element: HTMLDivElement): void {
-		if (this.item.subItems && this.item.subItems.length) {
+		if ( this.item.subItems && this.item.subItems.length ) {
 			this.opened = true;
 			element.classList.remove('collapsed');
 		}
@@ -103,7 +100,7 @@ export class MenuItemComponent implements OnInit, AfterViewInit, OnDestroy {
 		const self = this;
 		
 		self.router.navigateByUrl(self.item.href).then((result) => {
-			if (result) {
+			if ( result ) {
 				self.close();
 			}
 		}, (error: Error) => {
@@ -112,13 +109,13 @@ export class MenuItemComponent implements OnInit, AfterViewInit, OnDestroy {
 	}
 	
 	public onSubItemNavigated(navigated: boolean): void {
-		if (navigated) {
+		if ( navigated ) {
 			this.close();
 		}
 	}
 	
 	public close() {
-		if (this.opened) {
+		if ( this.opened ) {
 			this.extendedMenu.nativeElement.classList.add('collapsed');
 			this.opened = false;
 		}

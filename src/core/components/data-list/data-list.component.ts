@@ -14,11 +14,11 @@ import {
 	QueryList,
 	TemplateRef
 } from '@angular/core';
-import { EmptyDirective } from '../../directives/empty-data.directive';
-import { FooterDirective } from '../../directives/footer.directive';
-import { HeaderDirective } from '../../directives/header.directive';
-import { TemplateDirective } from '../../directives/template.directive';
-import { DataListProvider } from '../../interfasces/data-list-provider';
+import { DataListProvider } from 'core/interfasces/data-list-provider';
+import { HeaderDirective } from 'core/directives/header.directive';
+import { FooterDirective } from 'core/directives/footer.directive';
+import { EmptyDirective } from 'core/directives/empty-data.directive';
+import { TemplateDirective } from 'core/directives/template.directive';
 
 @Component({
 	selector   : 'core-data-list',
@@ -27,7 +27,7 @@ import { DataListProvider } from '../../interfasces/data-list-provider';
 })
 export class DataListComponent implements OnInit, AfterViewInit, AfterContentInit, DoCheck {
 	
-	public items: any[] = [];
+	public items: any[]       = [];
 	public itemsCount: number = 0;
 	
 	@Input()
@@ -81,13 +81,13 @@ export class DataListComponent implements OnInit, AfterViewInit, AfterContentIni
 	public ngDoCheck(): void {
 		const changes = this.differ.diff(this.items);
 		
-		if (changes) {
+		if ( changes ) {
 			this.updateDataToRender(this.items);
 		}
 	}
 	
 	private loadDataOnInit() {
-		if (this.dataProvider == null) {
+		if ( this.dataProvider == null ) {
 			throw new Error(`Data provider '[dataProvider]' can't be null.`);
 		}
 		
@@ -104,7 +104,7 @@ export class DataListComponent implements OnInit, AfterViewInit, AfterContentIni
 		this.isLoading = true;
 		this.dataProvider.getItems($event.offset, $event.count).then((items) => {
 			this.isLoading = false;
-			this.items = items;
+			this.items     = items;
 		}, (error) => {
 			this.isLoading = false;
 			return error;
@@ -112,12 +112,12 @@ export class DataListComponent implements OnInit, AfterViewInit, AfterContentIni
 	}
 	
 	public loadPage(pageNumber: number): void {
-		const offset = pageNumber ? (pageNumber - 1) * this.perPage : 0,
-			count = this.perPage,
-			loadObject = {
-				count : count,
-				offset: offset
-			};
+		const offset     = pageNumber ? (pageNumber - 1) * this.perPage : 0,
+			  count      = this.perPage,
+			  loadObject = {
+				  count : count,
+				  offset: offset
+			  };
 		
 		this.onPageLoad.emit(loadObject);
 		

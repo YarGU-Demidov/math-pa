@@ -1,8 +1,8 @@
-import { LogoutResult } from '../../../view-models/logout-result';
-import { DataProtocol } from '../data-protocol';
+import { DataProtocol } from 'core/services/api-service/data-protocol';
+import { LogoutResult } from 'core/view-models/logout-result';
 
 export class AuthController extends DataProtocol {
-	protected controllerName: string = "Auth";
+	protected controllerName: string = 'Auth';
 	
 	public logout(): Promise<LogoutResult> {
 		return this.get('Logout').then((data) => {

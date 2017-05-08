@@ -1,7 +1,7 @@
-import { Injectable } from "@angular/core";
-import { BrowserInfo } from "./browser-info";
-import { EventBusService } from '../message-bus-service/event-bus.service';
-import { Constants } from '../constants-service/constants.service';
+import { Injectable } from '@angular/core';
+import { BrowserInfo } from 'core/services/browser-info-service/browser-info';
+import { EventBusService } from 'core/services/message-bus-service/event-bus.service';
+import { Constants } from 'core/services/constants-service/constants.service';
 
 @Injectable()
 export class BrowserInfoService {
@@ -30,7 +30,7 @@ export class BrowserInfoService {
 	public setResizeHandler(): void {
 		this.eventBus.createEventIfNotExists(this.constants.eventBusEvents.WINDOW_RESIZE);
 		window.addEventListener('resize', (event: Event) => {
-			if (window.requestAnimationFrame) {
+			if ( window.requestAnimationFrame ) {
 				window.requestAnimationFrame(() => {
 					this.raise(event);
 				});

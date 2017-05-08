@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
-import { Constants } from '../constants-service/constants.service';
-import { EventBusService } from '../message-bus-service/event-bus.service';
+import { EventBusService } from 'core/services/message-bus-service/event-bus.service';
+import { Constants } from 'core/services/constants-service/constants.service';
 
 @Injectable()
 export class LoadingIndicatorService {
@@ -10,7 +10,7 @@ export class LoadingIndicatorService {
 	private timeoutIds: number[] = [];
 	
 	public constructor(eventBus: EventBusService, constants: Constants) {
-		this.eventBus = eventBus;
+		this.eventBus  = eventBus;
 		this.constants = constants;
 	}
 	
@@ -25,12 +25,12 @@ export class LoadingIndicatorService {
 	}
 	
 	public hide(timeoutId?: number): void {
-		if (timeoutId) {
+		if ( timeoutId ) {
 			this.removeTimeout(timeoutId);
 		}
 		
 		setTimeout(() => {
-			if (this.timeoutIds.length > 0) {
+			if ( this.timeoutIds.length > 0 ) {
 				return;
 			}
 			this.eventBus.raise(this.constants.eventBusEvents.INDICATOR.HIDE, null, []);
@@ -43,7 +43,7 @@ export class LoadingIndicatorService {
 	
 	private removeTimeout(id: number) {
 		const ids = this.timeoutIds.filter(idItem => idItem === id);
-		if (ids.length > 0) {
+		if ( ids.length > 0 ) {
 			for ( const idItem of ids ) {
 				clearTimeout(idItem);
 				this.timeoutIds.splice(this.timeoutIds.indexOf(idItem), 1);

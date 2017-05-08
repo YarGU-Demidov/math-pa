@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { TitleService } from '../../../core/services/title-service/title.service';
-import { PersonsProviderWithLoader } from '../../providers/persons-provider-with-loader';
+import { TitleService } from 'core/core.module';
+import { PersonsProviderWithLoader } from 'app/providers/persons-provider-with-loader';
 
 @Component({
 	selector   : 'persons-controller',

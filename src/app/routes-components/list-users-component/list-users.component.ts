@@ -1,11 +1,8 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { UserInfo } from '../../../core/view-models/user-info';
-import { LoadingIndicatorService } from '../../../core/services/loading-indicator/loading-indicator.service';
 import { LazyLoadEvent } from 'primeng/primeng';
-import { FiltersAndSortData, FiltersData, UsersSortable } from '../../../core/interfasces/entities-interfaces';
-import { SortDirection } from '../../../core/enums/sort-direction';
-import { UsersProviderWithLoader } from '../../providers/users-provider-with-loader';
-import { UsersProvider } from '../../providers/users-provider';
+import { UserInfo, LoadingIndicatorService, FiltersAndSortData, FiltersData, UsersSortable, SortDirection } from 'core/core.module';
+import { UsersProviderWithLoader } from 'app/providers/users-provider-with-loader';
+import { UsersProvider } from 'app/providers/users-provider';
 
 @Component({
 	selector   : 'list-users',

@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { EventBusService } from '../../services/message-bus-service/event-bus.service';
-import { Constants } from '../../services/constants-service/constants.service';
 import { animate, state, style, transition, trigger } from '@angular/animations';
+import { EventBusService } from 'core/services/message-bus-service/event-bus.service';
+import { Constants } from 'core/services/constants-service/constants.service';
 
 @Component({
 	selector   : 'loading',
@@ -24,29 +24,29 @@ import { animate, state, style, transition, trigger } from '@angular/animations'
 export class LoadingComponent implements OnInit {
 	private eventBus: EventBusService;
 	private constants: Constants;
-
+	
 	public visible: string = 'hidden';
-
+	
 	public constructor(eventBus: EventBusService, constants: Constants) {
-		this.eventBus = eventBus;
+		this.eventBus  = eventBus;
 		this.constants = constants;
-
+		
 		eventBus.createEventIfNotExists(constants.eventBusEvents.INDICATOR.SHOW);
 		eventBus.createEventIfNotExists(constants.eventBusEvents.INDICATOR.HIDE);
-
+		
 		eventBus.subscribe(constants.eventBusEvents.INDICATOR.SHOW, this.onShowHandler, this);
 		eventBus.subscribe(constants.eventBusEvents.INDICATOR.HIDE, this.onHideHandler, this);
 	}
-
+	
 	private onShowHandler(self: LoadingComponent): void {
 		self.visible = 'shown';
 	}
-
+	
 	private onHideHandler(self: LoadingComponent): void {
 		self.visible = 'hidden';
 	}
-
+	
 	public ngOnInit() {
-
+	
 	}
 }

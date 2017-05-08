@@ -1,12 +1,8 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { UserInfo } from '../../../core/view-models/user-info';
 import { LazyLoadEvent } from 'primeng/primeng';
-import { FiltersAndSortData, FiltersData, UsersSortable } from '../../../core/interfasces/entities-interfaces';
-import { SortDirection } from '../../../core/enums/sort-direction';
-import { PersonsProviderWithLoader } from '../../providers/persons-provider-with-loader';
-import { PersonsProvider } from '../../providers/persons-provider';
-import { Person } from '../../../core/entities/person';
-import { min } from 'rxjs/operator/min';
+import { Person, SortDirection, FiltersAndSortData, FiltersData, UsersSortable } from 'core/core.module';
+import { PersonsProviderWithLoader } from 'app/providers/persons-provider-with-loader';
+import { PersonsProvider } from 'app/providers/persons-provider';
 
 @Component({
 	selector   : 'list-persons',

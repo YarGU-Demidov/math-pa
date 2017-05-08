@@ -1,12 +1,12 @@
 import { Injectable } from '@angular/core';
 import { Http } from '@angular/http';
-import { AuthController } from './controllers/auth-controller';
-import { MenuItemsDataController } from './controllers/menu-items-data-controller';
-import { SettingsRetriever } from './controllers/settings-controller';
-import { UserController } from './controllers/users-info-controller';
-import { Constants } from '../constants-service/constants.service';
-import { UserInfo } from '../../view-models/user-info';
-import { PersonsComponent } from './controllers/persons-controller.component';
+import { MenuItemsDataController } from 'core/services/api-service/controllers/menu-items-data-controller';
+import { UserController } from 'core/services/api-service/controllers/users-info-controller';
+import { PersonsController } from 'core/services/api-service/controllers/persons-controller.component';
+import { SettingsRetriever } from 'core/services/api-service/controllers/settings-controller';
+import { AuthController } from 'core/services/api-service/controllers/auth-controller';
+import { Constants } from 'core/services/constants-service/constants.service';
+import { UserInfo } from 'core/view-models/user-info';
 
 @Injectable()
 export class ApiService {
@@ -16,7 +16,7 @@ export class ApiService {
 	
 	private menuItemsCtrl: MenuItemsDataController;
 	private usersInfoCtrl: UserController;
-	private personsCtrl: PersonsComponent;
+	private personsCtrl: PersonsController;
 	private settingsCtrl: SettingsRetriever;
 	private authCtrl: AuthController;
 	
@@ -26,7 +26,7 @@ export class ApiService {
 		
 		this.menuItemsCtrl = new MenuItemsDataController(this.apiUrl, http);
 		this.usersInfoCtrl = new UserController(this.apiUrl, this.http);
-		this.personsCtrl   = new PersonsComponent(this.apiUrl, this.http);
+		this.personsCtrl   = new PersonsController(this.apiUrl, this.http);
 		this.settingsCtrl  = new SettingsRetriever(this.apiUrl, this.http);
 		this.authCtrl      = new AuthController(this.apiUrl, this.http);
 	}
@@ -43,7 +43,7 @@ export class ApiService {
 		return this.usersInfoCtrl.getCurrentUser();
 	}
 	
-	public get persons(): PersonsComponent {
+	public get persons(): PersonsController {
 		return this.personsCtrl;
 	}
 	

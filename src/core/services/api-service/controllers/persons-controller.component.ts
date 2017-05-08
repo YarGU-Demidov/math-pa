@@ -1,10 +1,10 @@
 import { Response } from '@angular/http';
-import { DataProtocol } from '../data-protocol';
-import { MethodArgs } from '../method-args';
-import { FiltersAndSortData } from 'core/interfasces/entities-interfaces';
+import { DataProtocol } from 'core/services/api-service/data-protocol';
+import { FiltersAndSortData } from 'core/interfasces/filters-and-sort-data';
 import { Person } from 'core/entities/person';
+import { MethodArgs } from 'core/services/api-service/method-args';
 
-export class PersonsComponent extends DataProtocol {
+export class PersonsController extends DataProtocol {
 	protected controllerName: string = 'Persons';
 	
 	public getUsersCount(): Promise<number> {

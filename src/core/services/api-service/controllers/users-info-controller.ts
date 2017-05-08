@@ -1,8 +1,8 @@
 import { Response } from '@angular/http';
-import { UserInfo } from '../../../view-models/user-info';
-import { DataProtocol } from '../data-protocol';
-import { MethodArgs } from '../method-args';
-import { FiltersAndSortData } from '../../../interfasces/entities-interfaces';
+import { DataProtocol } from 'core/services/api-service/data-protocol';
+import { UserInfo } from 'core/view-models/user-info';
+import { FiltersAndSortData } from 'core/interfasces/filters-and-sort-data';
+import { MethodArgs } from 'core/services/api-service/method-args';
 
 export class UserController extends DataProtocol {
 	protected controllerName: string = 'UsersInfo';
@@ -19,7 +19,7 @@ export class UserController extends DataProtocol {
 		return this.get('GetCount').then((response: Response) => {
 			const responseData = (<{ result: string, error: string, data: number }> response.json());
 			
-			if (responseData.result !== 'success') {
+			if ( responseData.result !== 'success' ) {
 				throw new Error(responseData.error);
 			}
 			
@@ -35,7 +35,7 @@ export class UserController extends DataProtocol {
 		return this.get('GetAll', args, true, filtersAndSortData).then((response: Response) => {
 			const responseData = (<{ result: string, error: string, data: UserInfo[] }> response.json());
 			
-			if (responseData.result !== 'success') {
+			if ( responseData.result !== 'success' ) {
 				throw new Error(responseData.error);
 			}
 			

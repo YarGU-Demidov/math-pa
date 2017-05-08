@@ -4,8 +4,8 @@ import { Title } from '@angular/platform-browser';
 @Injectable()
 export class TitleService {
 	private title: Title;
-
-	private static POSTFIX = ' | Математический факультет ЯрГУ';
+	
+	private POSTFIX = ' | Математический факультет ЯрГУ';
 
 	public constructor(titleSrv: Title) {
 		this.title = titleSrv;
@@ -16,7 +16,7 @@ export class TitleService {
 	 * @param newTitle
 	 */
 	public setTitle(newTitle: string): void {
-		this.title.setTitle(newTitle + TitleService.POSTFIX);
+		this.title.setTitle(newTitle + this.POSTFIX);
 	}
 
 	/**

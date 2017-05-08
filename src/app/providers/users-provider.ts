@@ -1,8 +1,5 @@
 import { Injectable } from '@angular/core';
-import { DataListProvider } from '../../core/interfasces/data-list-provider';
-import { UserInfo } from '../../core/view-models/user-info';
-import { ApiService } from '../../core/services/api-service/api.service';
-import { FiltersAndSortData } from '../../core/interfasces/entities-interfaces';
+import { ApiService, UserInfo, FiltersAndSortData, DataListProvider } from 'core/core.module';
 
 @Injectable()
 export class UsersProvider implements DataListProvider<UserInfo> {
