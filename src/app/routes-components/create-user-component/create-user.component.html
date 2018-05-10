@@ -1,26 +1,7 @@
-<p-dialog #selectDialog
-          [visible]="false"
-          showEffect="fade"
-          [modal]="true"
-          [responsive]="true"
-          [resizable]="false"
-          [draggable]="false"
-          appendTo="body"
-          styleClass="PersonSelect__dialog">
-	<p-header class="PersonSelect__header">
-		Выбор пользователя
-	</p-header>
-	<div class="PersonSelect__Body">
-	
+<select-person [(visible)]="selectDialogVisible"></select-person>
+<div>
+	<h3>Создание пользователя</h3>
+	<div>
+		Выберите персону: <button pButton label="Choose" (click)="choosePerson()"></button>
 	</div>
-</p-dialog>
-
-<p-tabView>
-	<p-tabPanel header="Персона">
-		
-		<create-person></create-person>
-	</p-tabPanel>
-	<p-tabPanel #userCreate header="Пользователь" [disabled]="!currentPerson">
-		Content 2
-	</p-tabPanel>
-</p-tabView>
+</div>

@@ -1,0 +1,25 @@
+<p-dialog #selectDialog
+          [(visible)]="visible"
+          showEffect="fade"
+          [modal]="true"
+          [responsive]="true"
+          [resizable]="false"
+          [draggable]="false"
+          appendTo="body"
+          [width]="dialogWidth"
+          [minWidth]="320"
+          styleClass="PersonSelect__dialog">
+	<p-header class="PersonSelect__header">
+		Выбор персоны
+	</p-header>
+	<div class="PersonSelect__Body">
+		<p-tabView>
+			<p-tabPanel header="Select">
+				<list-persons [isSelectable]="true"></list-persons>
+			</p-tabPanel>
+			<p-tabPanel header="Create">
+				<create-person></create-person>
+			</p-tabPanel>
+		</p-tabView>
+	</div>
+</p-dialog>

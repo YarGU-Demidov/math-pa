@@ -5,13 +5,20 @@ import { HttpModule, JsonpModule } from '@angular/http';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
-import { CoreModule } from 'core/core.module';
-import { ApiService } from 'core/core.module';
-import { BrowserInfoService } from 'core/core.module';
-import { Constants } from 'core/core.module';
-import { LoadingIndicatorService } from 'core/core.module';
-import { EventBusService } from 'core/core.module';
-import { TitleService } from 'core/core.module';
+import {
+	AccordionModule,
+	ButtonModule,
+	CalendarModule,
+	DataTableModule,
+	DialogModule,
+	FileUploadModule,
+	InputMaskModule,
+	InputTextModule,
+	SharedModule,
+	TabViewModule
+} from 'primeng/primeng';
+
+import { CoreModule, ApiService, BrowserInfoService, Constants, LoadingIndicatorService, EventBusService, TitleService } from 'core/core.module';
 
 import { CriticalErrorService } from './services/critical-error-service/critical-error.service';
 import { SimpleErrorService } from './services/simple-error/simple-error.service';
@@ -31,20 +38,8 @@ import { CreateUserComponent } from './routes-components/create-user-component/c
 import { ListUsersComponent } from './routes-components/list-users-component/list-users.component';
 import { CreatePersonComponent } from './routes-components/create-person-component/create-person.component';
 import { ListPersonsComponent } from './routes-components/list-persons-component/list-persons.component';
-
-import {
-	AccordionModule,
-	ButtonModule,
-	CalendarModule,
-	DataTableModule,
-	DialogModule,
-	FileUploadModule,
-	InputMaskModule,
-	InputTextModule,
-	SharedModule,
-	TabViewModule
-} from 'primeng/primeng';
 import { PersonsControllerComponent } from './routes/persons-controller/persons-controller.component';
+import { SelectPersonComponent } from 'app/routes-components/select-person-component/select-person.component';
 
 @NgModule({
 	imports     : [
@@ -85,7 +80,8 @@ import { PersonsControllerComponent } from './routes/persons-controller/persons-
 		CreateUserComponent,
 		ListUsersComponent,
 		CreatePersonComponent,
-		ListPersonsComponent
+		ListPersonsComponent,
+		SelectPersonComponent
 	],
 	providers   : [
 		// services

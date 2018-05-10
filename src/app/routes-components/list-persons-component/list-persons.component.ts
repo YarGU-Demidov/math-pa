@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { LazyLoadEvent } from 'primeng/primeng';
 import { Person, SortDirection, FiltersAndSortData, FiltersData, UsersSortable } from 'core/core.module';
 import { PersonsProviderWithLoader } from 'app/providers/persons-provider-with-loader';
@@ -13,6 +13,9 @@ import { PersonsProvider } from 'app/providers/persons-provider';
 	]
 })
 export class ListPersonsComponent implements OnInit {
+	
+	@Output()
+	public onPersonSelected: EventEmitter<Person> = new EventEmitter<Person>();
 	
 	@Input()
 	public isSelectable: boolean;
@@ -83,6 +86,10 @@ export class ListPersonsComponent implements OnInit {
 			  seconds     = this.addZeroToNumber(date.getSeconds());
 		
 		return `${dayNumber}.${monthNumber}.${date.getFullYear()} ${hours}:${minutes}:${seconds}`;
+	}
+	
+	public createFullName(person: Person): string {
+		return `${person.surname} ${person.name} ${person.middleName}`;
 	}
 	
 	private addZeroToNumber(number: number): string {

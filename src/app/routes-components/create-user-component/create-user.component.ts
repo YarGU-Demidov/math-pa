@@ -1,5 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
-import { Dialog } from 'primeng/primeng';
+import { Component, OnInit } from '@angular/core';
 import { Person } from 'core/core.module';
 import { UsersProviderWithLoader } from 'app/providers/users-provider-with-loader';
 
@@ -12,9 +11,7 @@ import { UsersProviderWithLoader } from 'app/providers/users-provider-with-loade
 	]
 })
 export class CreateUserComponent implements OnInit {
-	
-	@ViewChild('selectDialog')
-	private selectDialog: Dialog;
+	public selectDialogVisible: boolean = false;
 	
 	public currentPerson: Person;
 	
@@ -23,5 +20,9 @@ export class CreateUserComponent implements OnInit {
 	
 	public ngOnInit(): void {
 	
+	}
+	
+	public choosePerson(): void {
+		this.selectDialogVisible = true;
 	}
 }

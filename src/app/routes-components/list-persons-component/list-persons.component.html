@@ -17,9 +17,18 @@
 	[emptyMessage]="'Персон нет.'"
 	(onLazyLoad)="loadUsersLazy($event)">
 	
-	<p-column header="Фамилия" field="surname"></p-column>
-	<p-column header="Имя" field="name"></p-column>
-	<p-column header="Отчество" field="middleName"></p-column>
+	<ng-container *ngIf="isSelectable; else notSelectable">
+		<p-column header="ФИО">
+			<ng-template let-person="rowData" pTemplate="body">
+				{{ createFullName(person) }}
+			</ng-template>
+		</p-column>
+	</ng-container>
+	<ng-template #notSelectable>
+		<p-column header="Фамилия" field="surname"></p-column>
+		<p-column header="Имя" field="name"></p-column>
+		<p-column header="Отчество" field="middleName"></p-column>
+	</ng-template>
 	<p-column header="Дата создания">
 		<ng-template let-person="rowData" pTemplate="body">
 			{{ createDateString(person) }}
